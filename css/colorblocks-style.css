@@ -15,20 +15,20 @@ BASE (MOBILE) SIZE
 
 /* typography */
 body{
+	background:#fff;
 	color:#666;
-	font-family:'Ubuntu', Arial, Helvetica, sans-serif; 
+	font-family:'Droid Serif', Arial, Helvetica, sans-serif; 
 	font-size:1em;
 	line-height:1.4em; 
 	font-weight:normal;
 }
 h1, h2, h3, h4, h5, h6{
-	font-weight:normal;
-	font-family:'Droid Serif', Arial, Helvetica, sans-serif; 
+	font-weight:400;
+	font-family:'Oswald', Arial, Helvetica, sans-serif; 
 	line-height:1.5em;
 	margin:.45em 0;
 	padding:0;
 } 
-
 
 /* links */
 a,
@@ -41,7 +41,6 @@ a:hover{ text-decoration:none;}
 /* Box sizing. Awesome thing. Read about it here: http://www.w3schools.com/cssref/css3_pr_box-sizing.asp */
 *{	box-sizing:border-box;
 	-moz-box-sizing:border-box;}
-
   
 /* structure */   
 .wrapper{
@@ -53,36 +52,30 @@ header{
 }
 #banner{ 
 	text-align:center;
-}
-	
+}	
 #hero,
 #page-header{
 	background:#f3f3f3;
 	border-top:1px solid #e2e2e2;
 	border-bottom:1px solid #e2e2e2;
 	padding:20px 0;
+	font-size:1.1em;
 }
-#hero h1{ 
-	line-height:1.2em;
-	margin-top:0px;
-	margin-bottom:10px;}
-
+#page-header h1{
+	margin:0;
+}
 .flexslider{
 	display:none;
 }
-
-#content {  
-	margin:40px 0;
+#content,
+aside,
+.vertical-padding{  
+	padding:40px 0;
 }
-
-aside { 
-	margin:40px 0;
-}
-
 p{ margin:0 0 1.5em;}
 
 
-/* RESPONSIVE IMAGES */
+/* RESPONSIVE IMAGES  */
 img{ max-width:100%; height:auto;}
 
 
@@ -98,7 +91,7 @@ img{ max-width:100%; height:auto;}
 	font-size:20px;
 }
 .menu-toggle.toggled-on{
-	background:#0099ff;
+	background:#5ec79e;
 }
 .srt-menu{
 	display:none;
@@ -115,14 +108,16 @@ img{ max-width:100%; height:auto;}
 	
 }
 .srt-menu li a {
+	color:#666;
 	background:#dadada;
 	display:block;
 	margin:1px 0; 
 	padding:10px;
 	text-decoration:none;
+	font-size:.9em;
 }
 .srt-menu li a:hover{
-	background:#0099ff;
+	background:#5ec79e;
 	color:#fff;
 }
 .srt-menu li li a {
@@ -144,6 +139,7 @@ img{ max-width:100%; height:auto;}
 }
 #secondary-navigation ul li a{ 
 	background:#E6E6E6;
+	color:#666;
 	display:block;
 	margin:5px 0; 
 	padding:10px;
@@ -151,7 +147,7 @@ img{ max-width:100%; height:auto;}
 }
 #secondary-navigation ul li a:hover,
 #secondary-navigation ul li.current a{
-	background:#0099ff;
+	background:#5ec79e;
 	color:#fff;
 }
 
@@ -178,37 +174,20 @@ img{ max-width:100%; height:auto;}
 
 /*FOOTER*/
 footer{  
-	clear:both;
+	background:#333;
+	color:#ccc;
 	font-size:80%;
 	padding:20px 0;
 }
 footer ul{
-	margin:0;
+	margin:0 0 0 8%;
 	padding:0;
 }
 
-/*colors and backgrounds*/
-body{
-	background:#fff;
-}
-h1, h2, h3, h4, h5, h6{
-	color:#333; 
-}
 
-footer{ 
-	background:#333;
-	color:#ccc;
-}
-footer h1, footer h2, footer h3, footer h4{ 
-	color:#CCC; 
-	margin-bottom:10px;
-}
-footer ul{
-	margin:0 0 0 8%;
-}
-
+/*Some more colored elements*/
 a.buttonlink{ 
-	background:#0099ff; 
+	background:#5ec79e; 
 	border-radius:7px; 
 	color:#fff;
 	display:block;
@@ -218,7 +197,7 @@ a.buttonlink{
 	text-decoration:none;
 }
 a.buttonlink:hover{
-	background:#8dbc01;
+	background:#887dc2;
 }
 .greenelement{
 	background:#5ec79e;
@@ -228,7 +207,6 @@ a.buttonlink:hover{
 	background:#887dc2;
 	color:#fff;
 }
-
 
 
 /* Contain floats*/ 
@@ -244,6 +222,15 @@ a.buttonlink:hover{
 .row:after{
   clear: both;
 }
+
+
+
+/****************************************
+*****************************************
+MEDIAQUERIES
+*****************************************
+****************************************/
+
 
 
 /*
@@ -274,15 +261,19 @@ But I think that some more breathing space is good:)
 	max-width: 1200px; 
 	margin: .75em auto;
 }
-
+header{
+	padding:0;
+}
 #banner{ 
 	float:left; 
 	text-align:left;
 	margin-bottom:0px;
+	margin-top:5px;
 }
-header{
+#hero{
 	padding:0;
 }
+
 #content {  
 	float:left;
 	width:65%;
@@ -293,20 +284,11 @@ header{
 }
 
 .flexslider{
-display:block;
+	display:block;
 /*demo 1 slider theme*/	
-margin: 0 0 60px; 
-background: #fff; 
-border: 4px solid #fff; 
--webkit-border-radius: 4px; 
--moz-border-radius: 4px; 
--o-border-radius: 4px; 
-border-radius: 4px; 
-box-shadow: 0 1px 4px rgba(0,0,0,.2); 
--webkit-box-shadow: 0 1px 4px rgba(0,0,0,.2); 
--moz-box-shadow: 0 1px 4px rgba(0,0,0,.2); 
--o-box-shadow: 0 1px 4px rgba(0,0,0,.2);
+margin: 0; 
 }
+.flex-control-nav {bottom: 5px;}
 
 
 aside { 
@@ -338,9 +320,11 @@ aside {
 	float:			left;
 	position:		relative;
 	margin-left:1px;
+	height:25px;
 }
 .srt-menu li li {
 	margin-left:0px;
+	height:auto;
 }
 .srt-menu a {
 	display:		block;
@@ -350,7 +334,7 @@ aside {
 .srt-menu li.sfHover ul {
 	display:block;
 	left:			0;
-	top:			45px; /* match top ul list item height */
+	top:			42px; /* match top ul list item height */
 	z-index:		99;
 	-webkit-box-shadow:  2px 3px 2px 0px rgba(00, 00, 00, .3);
     box-shadow:  2px 3px 2px 0px rgba(00, 00, 00, .3);
@@ -374,7 +358,7 @@ ul.srt-menu li li li.sfHover ul {
 	top:			0;
 }
 
-/*** DEMO1 SKIN ***/
+/*** DEMO2 SKIN ***/
 #topnav, .srt-menu {
 	float:right;
 	margin: .35em 0 0 0;
@@ -382,14 +366,13 @@ ul.srt-menu li li li.sfHover ul {
 .srt-menu a {
 	text-decoration:none;
 }
-.srt-menu li a {
+.srt-menu li a{
 	background:#fff;
 	margin:0; 
 	padding:10px 20px;
-	height:45px;
 }
 .srt-menu a, .srt-menu a:visited  { /* visited pseudo selector so IE6 applies text colour*/
-	color:			#0099ff;	
+	color:			#666;	
 }
 .srt-menu li li a {
 		border-top:		1px solid rgba(255,255,255,.2);
@@ -397,7 +380,6 @@ ul.srt-menu li li li.sfHover ul {
 		background:rgba(0,0,0,.6);
 		color:	#fff;
 		padding-left:20px;
-		height:auto;
 }
 .srt-menu li li a:visited{color:#fff;}
 .srt-menu li li li a,
@@ -409,11 +391,11 @@ ul.srt-menu li li li.sfHover ul {
 .srt-menu li:hover > a,
 .srt-menu li.current a{ 
 	color:#fff;
-	background:#0099ff;
+	background:#5ec79e;
 }
 .srt-menu li li:hover > a{
 	color:#fff;
-	background:#0099ff;
+	background:#5ec79e;
 }
 
 
@@ -461,7 +443,9 @@ ul.srt-menu li li li.sfHover ul {
 /* @notation inspired by tinyGrid, .row and percentage by Twitter Bootstrap
  */
  
-#hero [class*="grid_"] { margin-bottom:-20px;}
+#hero .grid_8 { 
+	margin:40px 0 -13px;
+}
 
 }
 
@@ -471,8 +455,8 @@ This is the average viewing window. So Desktops, Laptops, and
 in general anyone not viewing on a mobile device. Here's where
 you can add resource intensive styles.
 */
-@media only screen and (min-width: 1030px) {
-
+@media only screen and (min-width: 1024px) {
+#hero h1{ font-size:1.4em;}
 } 
 
 /*
@@ -480,7 +464,7 @@ LARGE VIEWING SIZE
 This is for the larger monitors and possibly full screen viewers.
 */
 @media only screen and (min-width: 1240px) {
-
+#hero h1{ font-size:2em;}
 } 
 
 /*
