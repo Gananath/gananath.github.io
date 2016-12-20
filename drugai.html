@@ -117,8 +117,8 @@
                 <img src="http://www.global-warming-and-the-climate.com/images/Neuron-input.GIF" alt="neural_network" style="width:400px;height:200px;">  
 
                 <br>
-                <h2>Simplified molecular-input line-entry system(SMILES)</h2>
-                <p><a href="https://en.wikipedia.org/wiki/Simplified_molecular-input_line-entry_system">The simplified molecular-input line-entry system</a> or SMILES is a specification in form of a line notation for describing the structure of chemical species using short ASCII strings. SMILES denotes a molecular structure as a graph with optional chiral indications. This is essentially the two-dimensional picture chemists draw to describe a molecule. SMILES describing only the labeled molecular graph (i.e. atoms and bonds, but no chiral or isotopic information) are known as generic SMILES. There are usually a large number of valid generic SMILES which represent a given structure. A canonicalization algorithm exists to generate one special generic SMILES among all valid possibilities; this special one is known as the "unique SMILES". SMILES written with isotopic and chiral specifications are collectively known as "isomeric SMILES". A unique isomeric SMILES is known as an "absolute SMILES". See the following examples<a href="http://www.daylight.com/dayhtml/doc/theory/theory.smiles.html">[REF 1]</a>.</p>
+                <h2>Simplified Molecular Input Line Entry System(SMILES)</h2>
+                <p>The <a href="https://en.wikipedia.org/wiki/Simplified_molecular-input_line-entry_system">simplified molecular-input line-entry system</a> or SMILES is a specification in form of a line notation for describing the structure of chemical species using short ASCII strings. SMILES denotes a molecular structure as a graph with optional chiral indications. This is essentially the two-dimensional picture chemists draw to describe a molecule. SMILES describing only the labeled molecular graph (i.e. atoms and bonds, but no chiral or isotopic information) are known as generic SMILES. There are usually a large number of valid generic SMILES which represent a given structure. A canonicalization algorithm exists to generate one special generic SMILES among all valid possibilities; this special one is known as the "unique SMILES". SMILES written with isotopic and chiral specifications are collectively known as "isomeric SMILES". A unique isomeric SMILES is known as an "absolute SMILES". See the following examples<a href="http://www.daylight.com/dayhtml/doc/theory/theory.smiles.html">[REF 1]</a>.</p>
 
                 <center>
                     <table border="">
@@ -194,7 +194,7 @@
                 <h2>DrugAI Project Details and Result</h2>
                 <p>Python is used as the main programming lanugaes. Keras with theano backend is used for making ANN. Scikit-Learn is used for creating n-grams and also for cross validation</p>
 
-                <p><a href="http://pubs.acs.org/doi/abs/10.1021/jm0003992">Stahl's Smiles dataset</a> were used for this supervised learning. The <a href="http://www.cheminformatics.org/datasets/stahl/index.html">dataset</a> contains six set of active compounds which includes 128 COX2 Inhibitors,55 Estrogen Receptor Ligands,43 Gelastinase A and General MMP Ligands,17 Neuraminidase Inhibitors,25 p38 MAP Kinase Inhibitors,67 Thrombin Inhibitors. The SMILES data is used as the feature vector and <a href="https://www.quora.com/What-is-one-hot-encoding-and-when-is-it-used-in-data-science">one hot encoding</a> is used for creating target vectors. </p>
+                <p><a href="http://pubs.acs.org/doi/abs/10.1021/jm0003992">Stahl's SMILES dataset</a> were used for this supervised learning. The <a href="http://www.cheminformatics.org/datasets/stahl/index.html">dataset</a> contains six set of active compounds which includes 128 COX2 Inhibitors,55 Estrogen Receptor Ligands,43 Gelastinase A and General MMP Ligands,17 Neuraminidase Inhibitors,25 p38 MAP Kinase Inhibitors,67 Thrombin Inhibitors. The SMILES data is used as the feature vector and <a href="https://www.quora.com/What-is-one-hot-encoding-and-when-is-it-used-in-data-science">one hot encoding</a> is used for creating target vectors. </p>
                 <br>
                 <h3>Sample Dataset</h3>
                 <center>
@@ -586,7 +586,7 @@
                         <p>Didn't used higher N-grams</p>
                     </li>
                     <li>
-                        <p>No out of sample validation</p>
+                        <p>Not tried out of sample validation</p>
                     </li>
                     <li>Less number of Data</li>
                 </ul>
@@ -598,6 +598,9 @@
                     </li>
                     <li>
                         <p>Larger dataset</p>
+                    </li>
+                    <li>
+                        <p>Use other chemical data formats such as <a href="https://en.wikipedia.org/wiki/International_Chemical_Identifier">International Chemical Identifier</a></p>
                     </li>
                     <li>
                         <p>Predict strutures instead of classification</p>
