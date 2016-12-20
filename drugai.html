@@ -189,7 +189,7 @@
                 <br>
                 <h2>Bag of words or Bag of N-grams model</h2>
                 <p><a href="https://en.wikipedia.org/wiki/Bag-of-words_model">Bag of words model</a> is a natural language processing where a document is represented as collection of words and ignoring its sequence. The application of this model includes sentimental analysis, spam-filtering, document classification etc. In the fields of computational linguistics and probability, an <a href="https://en.wikipedia.org/wiki/N-gram#n-gram_models">n-gram</a> is a contiguous sequence of n items from a given sequence of text or speech.</p>
-                <p> In this project bag of words model is used to create feature values for SMILES of its individual elements. Consider example for ethane, its SMILE is <b>CC</b> after tokenizing it will become<b>['C', 'C']</b> and mapped these values to an integer <b>{'C': 0}</b>. For a complex molecule like this <b>CC(=O)NC1=C(N)C=C(C=C1)C([O-])=O</b> its vectorized form will be <b>[0, 4, 4, ..., 1, 0, 0]</b> </p>
+                <p> In this project bag of words model is used to create feature values for SMILES from its individual elements. Consider example for ethane, its SMILE is <b>CC</b> after tokenizing it will become<b>['C', 'C']</b> and mapped these values to an integer <b>{'C': 0}</b>. For a complex molecule like this <b>CC(=O)NC1=C(N)C=C(C=C1)C([O-])=O</b> its vectorized form will be <b>[0, 4, 4, ..., 1, 0, 0]</b> </p>
 
                 <h2>DrugAI Project Details and Result</h2>
                 <p>Python is used as the main programming lanugaes. Keras with theano backend is used for making ANN. Scikit-Learn is used for creating n-grams and also for cross validation</p>
@@ -323,7 +323,7 @@
                     </table>
                 </center>
                 <br>
-                <p>The dataset is first split into training and testing set. From the training set the SMILES data were then tokenized into its individual characters , made n-gram of SMILES characters where n=1,2 and3 and then vectorized those n-gram characters. The vectorized values then passed throught the neural network and trained it for certain number of epoch with a batch size of 15. crossvalidation of the testing set was also performed </p>
+                <p>The dataset is first split into training (70%) and testing (30%) set. From the training set the SMILES data were then tokenized into its individual characters , made n-gram of SMILES characters where n=1,2 and3 and then vectorized those n-gram characters. The vectorized values then passed throught the neural network and trained it for certain number of epoch with a batch size of 15. crossvalidation of the testing set was also performed </p>
 
                 <br>
                 <h2>Relationship between N-grams and accuracy</h2>
