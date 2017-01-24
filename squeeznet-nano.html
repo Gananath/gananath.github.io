@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-        <title>ProteinStatsAI: Predict proteins statistics and properties using neural network.</title>
+        <title>Squeeznet-nano: Image classifiction of nano materials from SEM and TEM images using squeeznet</title>
         <meta name="description" content="Classification of Drug Like molecules using Artificial Neural Network">
         <meta name="keywords" content="">
 
@@ -51,11 +51,13 @@
                         <ul>
                             <li>
                                 <a href="drugai.html">DrugAI</a>
-                            </li>
-                            <li class="current">
+                            </li>                            
+                            <li>
                                 <a href="proteinstatai.html">ProteinStatsAI</a>
                             </li>
-                            <li><a href="squeeznet-nano.html">Squeeznet-Nano</a></li>
+                            <li class="current">
+                                <a href="squeeznet-nano.html">Squeeznet-Nano</a>
+                            </li>                            
                             <li>
                                 <a href="#">Others</a>
                                 <ul>
@@ -91,8 +93,8 @@
         <section id="page-header" class="clearfix">    
 
             <div class="wrapper">
-                <h1>ProteinStatsAI</h1>
-                <h4>Predict proteins statistics and properties using neural network.</h4>
+                <h1>Squeeznet-nano</h1>
+                <h4>Image classifiction of nano materials from SEM and TEM images using squeeznet</h4>
             </div>
         </section><!-- end hero area -->
 
@@ -107,35 +109,31 @@
             <!-- content area -->    
             <section id="content">
 
-                <p>If you are visiting here for the first time then I would recommend you to my earlier project <a href="https://github.com/Gananath/DrugAI">DrugAI</a> before reading any further. This project used SMILES signature of drug molecules to classify an organic molecule into different drug families.I have reused many functions and codes from this earlier project to this one. The main difference between this project and earlier project is, this is a regression problem whereas the previous one is a classifiction problem.</p>
+                <p>This project is my first endevour to image classification and transfer learning. I have used <a href="https://arxiv.org/pdf/1602.07360">squeezenet</a> for this learning with a slight modifications. The last softmax layer of squeeznet is removed and additional dense and droupout layers were added to new modified architecture. SqueezeNet achieves AlexNet-level accuracy on ImageNet with 50x fewer parameters. That is squeezent learns very fast and resultend model size also tends to be very small. The original alexnet and squeeznet is >250 MB and 5 MB respectevily whereas my modified model is approximately 15MB in size.</p>
+                
+                <p>Initially I have used RELU as the activation funcion for all the new layers except the last layer which I kept as softmax. Somehow addition of the RELU activation fuction to the new layers overwhelmed my neural netowork and it dosent learned anything and showed an error in loss as <b>NaN</b>. This error I think is mainly caused by the range of RELU output which is [0,+infinity). Then I changed starting activation function to TANH whose range is between (-1, 1) and now it trained without any error. </p>
 
-                <p>Similar to my earlier project I have used Bag of words (n-grams) <a href="https://gananath.github.io/drugai.html">[Link]</a> for  feature genration and then trained it in a nerual network. Here protein <a href="https://en.wikipedia.org/wiki/FASTA_format">FASTA</a> sequence is used as a feature. The <a href="ftp://ftp.ebi.ac.uk/pub/databases/pombase/FASTA/pep.fa.gz">dataset</a> and its <a href="ftp://ftp.ebi.ac.uk/pub/databases/pombase/FASTA/pep.fa.gz">stats</a> were obtained from <a href="https://www.pombase.org/downloads/protein-datasets">pombase</a>. Because the data were in two different files we have to first prepare, clean and save it in a CSV format before doing any machine learning. For data preparation I have used <b>R</b> program because its fast and easier to code. </p>
+              
                 
                 <p><b>Predicting targets</b></p>
 
                 <ul>
-                    <li><p>Mass</p>
+                    <li><p>Nanotubes</p>
 
                     </li>
-                    <li><p>pI</p>
+                    <li><p>Nanoparticles</p>
 
                     </li>
-                    <li><p>Charge</p>
-
-                    </li>
-                    <li><p>NumResidues</p>
-
-                    </li>
-                    <li><p>CAI</p>
+                    <li><p>None or Random</p>                   
 
                     </li>
                 </ul>
 
 
-                <p> A simple multilayer perceptron is used for this study which was createad using keras module in python with a theanos backend. The FASTA sequence were converted to features and target values are normalized before feeding it to the neural network model. The model was trained for 15 epochs with a batch size of 200 for one cross validation (recommend to use 10). After training the project, it outputted a net validation loss of <b>0.0173422084428</b> and last validation loss of <b>0.0079427516942</b>. </p>
+                <p><i>Caution: </i>As this is my first time implementing of a image classification and transfer learning I am not sure about the accuracy of the resultant model. I also trained the model for very less computation and with a small dataset because of my lack of infrastruture. So I will advice you to take the code and results with a grain of salt. </p>
 
-                <p>Project Github Page: <a href="https://github.com/Gananath/ProteinStatsAI">https://github.com/Gananath/ProteinStatsAI</a></p>
-                <center><img src="images/proteinmodel.png" alt="neural_network" style="width:150px;height:300px;"> </center>  
+                <p>Project Github Page: <a href="https://github.com/Gananath/squeeznet-nano">https://github.com/Gananath/squeeznet-nano</a></p>
+                <center><img src="images/squeezenet-model.png" alt="neural_network" style="width:150px;height:300px;"> </center>  
                 <br>
 
 
@@ -149,8 +147,8 @@
                     <ul>
                         <li><a href="index.html">Home Page</a></li>
                         <li><a href="drugai.html">DrugAI</a></li>
-                        <li class="current"><a href="proteinstatai.html">ProteinStatsAI</a></li>
-                        <li><a href="squeeznet-nano.html">Squeeznet-Nano</a></li>
+                        <li><a href="proteinstatai.html">ProteinStatsAI</a></li>
+                        <li class="current"><a href="squeeznet-nano.html">Squeeznet-Nano</a></li>
                         <li><a href="cv.html">CV</a></li>
                         <li><a href="https://github.com/Gananath">Contact</a></li>
 
