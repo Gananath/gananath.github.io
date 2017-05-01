@@ -150,16 +150,23 @@
             <h4>EPOCH: 0</h4>
         <p>
             ['[NNNNNNNNN33333NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
-       'P5555lllll[[[[[[[[|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||',
-       '===BBBBBBBBBBBBBBBBBBB===============================================rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr']</p>
+             'P5555lllll[[[[[[[[|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||',
+             '===BBBBBBBBBBBBBBBBBBB===============================================rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr']</p>
              <h4>EPOCH: 3000</h4> 
                 <p>
                     ['CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC||||||||||||||||||||||||||||||||||||||||||'
- 'CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC|||||||||||||||||||||||||||||||||||||'
- 'CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC|||||||||||||||||||||||||']</p>
+                     'CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC|||||||||||||||||||||||||||||||||||||'
+                     'CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC|||||||||||||||||||||||||']</p>
                 
                 <p>The end result seems intersting but as many in the <a href="https://www.reddit.com/r/MachineLearning/comments/40ldq6/generative_adversarial_networks_for_text/cyyp0nl/">reddit discussion </a> suggested that GAN may learn somethings from the dataset but mostly the output is rubbish. I also believe these results can be just rubbishes and we require some way to teach discrete values in GAN. Even with a dropout layer I am worried that the end result may be caused by overfitting of data.</p>
-                <p><strong>UPDATE:</strong>I have trained it for a little long (a day to be exact) and it seems GAN learns only a single sequence. Whatever input I gave to it, the output was always the same and its a well know problem in GAN called as "mode collapse". </p>
+                <p><strong>UPDATE:</strong>I have trained it for a little long (a day to be exact) and it seems GAN learns only a single sequence. Whatever input I gave to it, the output was always the same and its a well know problem in GAN called as "mode collapse". In order to prevent mode collapse I have retrained Discriminator using a artificial noice data and so far the result is interesting.</p>
+                
+                <h4>EPOCH: 7500</h4> 
+                <p>
+                    ['C(((ONNNN2CCCC=CCC(1NN1CC==CC(1))CC==CC()))C===CC(())CC==CC())2CC==CC|))|||||||||||||||||'
+                     'C(ONNN2CCC=CC(1NN1C==C(())2C==C(())2C==C()))CC=CC|)||||||||||||||||||||||||||||||||||||||'
+                     'C(((ONNNN2CCCC==CC(1NN2CC==C(1))2C==CC(())2C==CC(())2C==CC())2CC==C(())2CC=CC||)|||||||||']
+</p>
 
                 <p>Project Github Page: <a href="https://github.com/Gananath/DrugAI/blob/master/DrugAI-GAN.py">https://github.com/Gananath/DrugAI/blob/master/DrugAI-GAN.py</a></p>
                 
