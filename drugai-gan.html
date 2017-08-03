@@ -110,7 +110,7 @@
 
             <!-- content area -->    
             <section id="content">
-
+                <p><a href="https://gananath.github.io/">DrugAI-WGAN</a> : A Wasserstein GAN model with CNN; this model currently trains the fastest and probably gives the best result. Result is at the bottom of the page.</p>
                 <p>If you are visiting here for the first time then I would recommend you to my earlier project <a href="https://github.com/Gananath/DrugAI">DrugAI</a> before reading any further. The main aim of this project was to carry out some personal experiments with Generative adversarial networks (GAN) for sequence generation. GAN's were discoverd by Ian Goodfellow  in 2014 for image generation. It has revolutinized the way images are generated using machines and there are currently many research groups around the world involved in this algorithm. GANs are so diverse that there are various types of GANs such as stackGAN, cycleGAN, infoGAN, dcGAN, pix2pix etc created by researchers. I would also recommend you to go through those projects and see for yourself the sureal images created by GANs. </p>
                 
                 <center><img src="https://pbs.twimg.com/media/C8QDETuUwAE0vIl.jpg" alt="cycleGAN" style=""> </center>  <br>
@@ -119,7 +119,7 @@
                 
                 <p>Most of the code for this project I salvaged from my earlier <a href="https://gananath.github.io/drugai-gen.html">LSTM model project</a> and added an additional GAN model to it. The GAN model was prepared using the codes and recommendations from the web articles freely available in the web and I am in no way guaranteing its accuracy. Instead of using a gaussian noise as input, I chose my earlier LSTM model's one hot encoded <strong>x</strong> values as the input (<i>z</i>). I already trained GAN with gaussian inputs and what I observed in my initially 1000 epochs training was that GAN's for sequence generation tends to learn faster with one hot encoded inputs than the gaussian inputs. </p>
 
-                <p> Because I have a very old system, training deep learning algorithms for longer duration is not possible in it. I recently came across <a href="https://floydhub.com">floydhub.com</a> which has a free trial period for training deep learning models using either gpu or cpu. I know about AWS cloud system and their free tier for deep learning but it requires a submission of credit card or bank account details which I am not comfortable with. This is the first time I am using a cloud server for training deep learning projects and so far I am impressed by <b>floydhub</b> and its support. The web interface is very simple and eventhough being a first time user I can easily deploy my project in floydhub with ease. Initially their were some hiccups but support was extraordinary and fast.</p>
+                <p> Because I have a very old system, training deep learning algorithms for longer duration is not possible in it. I recently came across <a href="https://floydhub.com">floydhub.com</a> which has a free trial period for training deep learning models using either gpu or cpu. I know about AWS cloud system and their free tier for deep learning but it requires a submission of credit card or bank account details which I am not comfortable with. This is the first time I am using a cloud server for training deep learning projects and so far I am impressed by <b>floydhub</b> and its support. The web interface is very simple and eventhough being a first time user I can easily deploy my projects in floydhub with ease. Initially their were some hiccups but support was extraordinary and fast.</p>
                 
                I deployed my GAN project this way in floydhub
                
@@ -134,7 +134,7 @@
 <p>Install floydhub command line tool <strong>$ pip install -U floyd-cli</strong></p>
 </li>
 <li>
-<p>Login to floy hub <strong>$ floyd login</strong></p>
+<p>Login to floyd hub <strong>$ floyd login</strong></p>
 </li>
 <li>
 <p>From shell <em>CD</em> and go to <strong>DrugAI</strong> folder</p>
@@ -161,7 +161,8 @@
                      'CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC|||||||||||||||||||||||||']</p>
                 
                 <p>The end result seems intersting but as many in the <a href="https://www.reddit.com/r/MachineLearning/comments/40ldq6/generative_adversarial_networks_for_text/cyyp0nl/">reddit discussion </a> suggested that GAN may learn somethings from the dataset but mostly the output can be rubbish. Even with a dropout layer I am worried that the end result may be caused by overfitting of data.</p>
-                <p><strong>UPDATE:</strong>I have trained it for a little long (a day to be exact) and it seems GAN learns only a single sequence. Whatever input I gave to it, the output was always the same and its a well know problem in GAN called as "mode collapse". In order to prevent mode collapse I have retrained Discriminator using a artificial noice data and so far the result is interesting.</p>
+
+                <p><strong>UPDATE: </strong>I have trained it for a little longer (a day to be exact) and it seems GAN learns only a single sequence. Whatever the input I gave to it, the output was always the same and its a well know problem in GAN called as "mode collapse". In order to prevent mode collapse I have retrained Discriminator using a artificial noise data and so far the result is interesting.</p>
                 
                 <h4>EPOCH: 6000+</h4> 
                 <p>
@@ -175,18 +176,30 @@
                     I want to generate a molecule from first class instead of giving one hot encoded discrete values I can give it continous values.            
                 
                 </p>
-                <h4>INPUT</h4> 
-                <p>[[0.6,0,0,0,0,0],[0.3,0,0,0,0,0],[0.7,0,0,0,0.0]]</p>
-                <h4>RESULT</h4> 
+                
+                <h2><b>RESULT</b></h2> 
+                <h4><b><i>DrugAI-GAN</i></b></h4> 
+                
+                <p><b>INPUT: </b> [[0.6,0,0,0,0,0],[0.3,0,0,0,0,0],[0.7,0,0,0,0.0]]</p>
                 ['CCNNNNNNNNNNNCCCCCCC====CCCCCCC||||||||||||||||||||||||||||||||||||||||||||||||||||||||||'
                  'CCNNNNNNNNNNNNCCCCCCCC====CCCCCCC||||||||||||||||||||||||||||||||||||||||||||||||||||||||'
                  'CCNNNNNNNNNNNCCCCCCC====CCCCCCC||||||||||||||||||||||||||||||||||||||||||||||||||||||||||']
-
+                
                 <p></p>
                 <p>Project Github Page: <a href="https://github.com/Gananath/DrugAI/blob/master/DrugAI-GAN.py">https://github.com/Gananath/DrugAI/blob/master/DrugAI-GAN.py</a></p>
                 <p>FloydHub logs: <a href="https://github.com/Gananath/DrugAI/blob/master/Others/Logs/floydlogs_gan.txt">https://github.com/Gananath/DrugAI/blob/master/Others/Logs/floydlogs_gan.txt</a></p>
+                <h4><b><i>DrugAI-WGAN</i></b></h4>
+                <p><b>INPUT: </b>[[0, 0, 0, 1, 0, 0],[0, 1, 0, 0, 0, 0],[0, 0, 0, 0, 0, 1]]</p>
+                ['CC1=C(C(C(=O)O)(=CC=N2[S]CCCCCC(C(Cl)C1C4)[+])C2=C4=O|||||||||||||||||||||||||||'
+                 'CC1=C(C(C(=O)OO(=CC=N2[N]CCCCCC(C(Cl)C1C3)[+])C2=CC=O)||||||||||||||||||||||||||'
+                 'CC1=C(C(C(=O)O)(=CC=N2[N]CCC=CC(C(CO)C1C3)[+])C2=CC=O)||||||||||||||||||||||||||']
+
+                <p><i>*After training for 1 hour in GPU</i></p>
+                <p>Project Github Page: <a href="https://github.com/Gananath/DrugAI/tree/master/DrugAI-WGAN">https://github.com/Gananath/DrugAI/tree/master/DrugAI-WGAN</a></p>
+                <p>FloydHub logs: <a href="https://github.com/Gananath/DrugAI/blob/master/DrugAI-WGAN/floyd_logs.txt">https://github.com/Gananath/DrugAI/blob/master/DrugAI-WGAN/floyd_logs.txt</a></p>
+               
                 
-                <h3>Helpful Links:</h3> 
+                <h3><b>Helpful Links:</b></h3> 
                 <p>https://github.com/soumith/ganhacks<br>
 https://medium.com/towards-data-science/gan-by-example-using-keras-on-tensorflow-backend-1a6d515a60d0</p>
                 <br>
