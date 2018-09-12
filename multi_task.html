@@ -160,11 +160,15 @@
                 
                 <h3><b>Result</b></h3>
                 <p>
-                </p>
-                I have trained the generator with both softmax and sigmoid activation functions in the output layer. Eventhough both didn't generated images; sequence tends to converge to ||||||...||| faster with softmax.
+                
+                I have trained the generator with both softmax and sigmoid activation functions in the output layer. Eventhough both didn't generated images; sequence tends to converge to ||||||...||| faster with softmax.</p>
                 <center><img src="images/multi_pred.jpg" alt="multi_out" style=""> </center>  <br>
-                From my own experience with previous GAN sequences generation, the output |||||...|||  tells us that the generated sequence are not random and the model had learned some patterns and the model needs some more optimization. 
-                </p>
+                Current Best 3000 epochs of training
+                 
+                From my own experience with previous GAN sequences generation, the output |||||...|||  tells us that the generated sequence are not random and the model had learned some patterns and the model needs some more optimization.</p>
+        <center><img src="images/new_multi_pred.jpg" alt="multi_out" style=""> </center>  <br>
+         
+    <p>With more training the prediction of sequence can be improved. The likely reason why images are not formed completely can be due to the convolution-1D which has less parameter (less than 5000) than other image classification model (1,00,000)</p>
 
                 <h3><b>Possible reasons for failure</b></h3>
                 <p>There are mainly four possible reasons for its failure:
