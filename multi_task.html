@@ -149,7 +149,7 @@
                 <p> 
                     I have used two different datasets one image and another text sequence. Normally we use Convolution-2D layer for image  and RNN/LSTM/Convolution-1D layer for sequece classification and generation. Instead of this with clever tweaking a common layer can be used for both image as well as sequence classification and generation . For ease, In my project I have used Convolution-1D (can also be done with Convolution-2D and RNN models)  as the neural network model with a common layer for both image and text generation. Also the text sequence dimension was used as the default dimension of  Convolution-1D output layer and mnist image dimension is zero padded to the default dimension.  The USP of this method is that the model is not much different than the vanilla GAN's except the common input layer of discriminator and output layer of generator for predicting different multi tasks. Both sequences and images are generated from the same output layer of  the generator simultaneously.
                 </p>
-            <p><b><i>I also added a resize function to the project in which we can resize the images to particular dimension. A resized image when trained tends to give much more good result</i></b></p>
+            <p><b><i>I also added a resize function to the project in which we can resize the images to particular dimension. A resized image when trained tends to give much more good results.</i></b></p>
                 <center><img src="images/multitask1.jpg" alt="padded" style=""> </center>  <br>
                
                 <center><p><h5><i>The left image shows the orginal (28,28) dimension MNIST image and the right is an example zero padded image padded to (128,128) </i></h5></p> </center>  <br>
