@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-        <title>Multi Task and Multi Domain Learning Experiments with Neural Networks</title>
+        <title>BrainGAN: Multi Task and Multi Domain Learning Experiments with Neural Networks</title>
         <meta name="description" content="Multi Task Learning Experiments with Neural Networks">
         <meta name="keywords" content="">
 
@@ -60,7 +60,7 @@
                                 <a href="proteinstatai.html">ProteinStatsAI</a>
                             </li>
                             <li class="current">
-                                <a href="multi_task.html">Multi Task</a>
+                                <a href="multi_task.html">BrainGAN</a>
                             </li>                         
                             <li>
                                 <a href="#">Others</a>
@@ -97,8 +97,8 @@
         <section id="page-header" class="clearfix">    
 
             <div class="wrapper">
-                <h1>Multi Task and Multi Domain Learning Experiments with Neural Networks</h1>
-                <h4>.</h4>
+                <h1>BrainGAN</h1>
+                <h4>Multi Task and Multi Domain Learning Experiments with Neural Networks</h4>
             </div>
         </section><!-- end hero area -->
 
@@ -112,7 +112,7 @@
 
             <!-- content area -->    
             <section id="content">
-                    <center><img src="https://i.imgur.com/BnbBxhH.png" alt="rotob" style=""> </center>  <br>
+                    <center><img src="https://i.imgur.com/BnbBxhH.png" alt="rotob" > </center>  <br>
                     <center><p><h6><i>Multi tasking</i></h6></p> </center> <br>
 
                 <p>
@@ -122,7 +122,7 @@
                 <p> 
                     The idea for using neural networks for multi task learning came over an year ago when I saw this image in <a href="http://www.pnas.org/content/early/2017/03/13/1611835114.full">"Overcoming catastrophic forgetting in neural networks"</a> paper. The aim of the paper was to solve the catastrophic forgetting problem. I tried to read and understand the paper but didn't understand nothing. Then I tried to read  a blog written by <a href="https://rylanschaeffer.github.io/content/research/overcoming_catastrophic_forgetting/main.html">Rylan Schaeffer</a> about this paper. I still not fully understood (my maths is weak) the paper but able to grasp the intution behind it. 
                 </p>
-                <center><img src="https://i.imgur.com/req34beg.jpg" alt="elastic weight consolidation" style=""> </center>  <br>
+                <center><img src="https://i.imgur.com/req34beg.jpg" alt="elastic weight consolidation"> </center>  <br>
                 <center>
                 <p> From that Rylan Schaeffer's blog:
                     <br>
@@ -145,12 +145,12 @@
                 <p>
                     In this experiment I chose to use GAN comparing to any other supervised algorithm or autoencoders. I personally believe GAN's are superior for solving highly generalized tasks such as this one. For my current work I have used infoGAN's architecture but it should easily work with other types of conditional GAN's. The difference is in "conditional"-GAN we pass noise Z and class C in the generator inputs (Z, C) whereas in my experiment instead of class its tasks T (Z, T). That said theoratically we can also build a model with class for specific tasks by passing inputs as (Z, T, C).
                 </p>
-                <center><img src="https://i.imgur.com/zIne1Mi.png" alt="infoGAN" style=""> </center>  <br>
+                <center><img src="https://i.imgur.com/zIne1Mi.png" alt="infoGAN"> </center>  <br>
                 <p> 
                     I have used two different datasets one image and another text sequence. Normally we use Convolution-2D layer for image  and RNN/LSTM/Convolution-1D layer for sequece classification and generation. Instead of this with clever tweaking a common layer can be used for both image as well as sequence classification and generation . For ease, In my project I have used Convolution-1D (can also be done with Convolution-2D and RNN models)  as the neural network model with a common layer for both image and text generation. Also the text sequence dimension was used as the default dimension of  Convolution-1D output layer and mnist image dimension is zero padded to the default dimension.  The USP of this method is that the model is not much different than the vanilla GAN's except the common input layer of discriminator and output layer of generator for predicting different multi tasks. Both sequences and images are generated from the same output layer of  the generator simultaneously.
                 </p>
             <p><b><i>I also added a resize function to the project in which we can resize the images to particular dimension. A resized image when trained tends to give much more good results.</i></b></p>
-                <center><img src="images/multitask1.jpg" alt="padded" style=""> </center>  <br>
+                <center><img src="images/multitask1.jpg" alt="padded"> </center>  <br>
                
                 <center><p><h5><i>The left image shows the orginal (28,28) dimension MNIST image and the right is an example zero padded image padded to (128,128) </i></h5></p> </center>  <br>
                 <p>It is also feasible to build a hybrid neural network models such as [Convolution-2D + Convolution-1D] in keras where Convolution-1D is the output layer of the model . I have built this <a href="https://github.com/Gananath/Multi-Task/blob/master/hybrid_model.py">hybrid model in keras (hybrid_model.py)</a> . You have to manually add these models from <i>hybrid_model.py</i> to <i>drugai.py</i>.
@@ -163,12 +163,12 @@
                 <p>
                 
                 I have trained the generator with both softmax and sigmoid activation functions in the output layer. Eventhough both didn't generated images; sequence tends to converge to ||||||...||| faster with softmax.</p>
-                <center><img src="images/multi_pred.jpg" alt="multi_out" style=""> </center>  <br>
+                <center><img src="images/multi_pred.jpg" alt="multi_out"> </center>  <br>
                 
                  
                 From my own experience with previous GAN sequences generation, the output |||||...|||  tells us that the generated sequence are not random and the model had learned some patterns and the model needs some more optimization.</p>
     <b>Current Best 3000 epochs of training</b><br>
-        <center><img src="images/new_multi_pred.jpg" alt="multi_out" style=""> </center>  <br>
+        <center><img src="images/new_multi_pred.jpg" alt="multi_out"> </center>  <br>
          
     <p>With more training the prediction of sequence can be improved. The likely reason why images are not formed completely can be due to my model a convolution-1D which has less parameters (less than 5000) than other image classification models (avg 1,00,000)</p>
 
@@ -178,7 +178,7 @@
                     Will try to optimize the model further and try to use different architecture to generate some more results.
                 </p>
                 <p>Project Github Page:     <br>                <s><a href="https://github.com/Gananath/Multi-Task">https://github.com/Gananath/Multi_Task</a></s><br><br>
-                    <a href="https://github.com/Gananath/brainGAN">https://github.com/Gananath/brainGAN</a></s><br>
+                    <a href="https://github.com/Gananath/BrainGAN">https://github.com/Gananath/BrainGAN</a></s><br>
                     
                     </p>
                 
@@ -195,7 +195,8 @@
                     <ul>
                         <li><a href="index.html">Home Page</a></li>
                         <li><a href="drugai.html">DrugAI</a></li>                        
-                        <li><a href="proteinstatai.html">ProteinStatsAI</a></li>      
+                        <li><a href="proteinstatai.html">ProteinStatsAI</a></li>  
+                        <li class="current"><a href="multi_task.html">BrainGAN</a></li>     
                         <li><a href="cv.html">CV</a></li>
                         <li><a href="https://github.com/Gananath">Contact</a></li>
 
