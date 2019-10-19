@@ -144,12 +144,12 @@
                     <li>First Policy: What to do? </li>
                     <li>Second Policy: Where to do it? </li>
                     </ol>
-                There are three things first policy head can do. It can either mutate or delete a character in the SMILES format or it can do crossover. If you want to know more about mutation, deletion and crossover then I will recommend to refer some genetic books or read about genetic algorithm (GA). Deletion is a unique process in NERD when comparing to vanilla GA. Sofar in my knowledge no one uses deletion as a method to evolve something in vanilla GA. The task of the second policy head is much more simpler it has to deicide where it has to do mutation, deletion or  crossover.
+                There are three things first policy head can do. It can either mutate or delete a character in the SMILES format or it can do crossover. If you want to know more about mutation, deletion and crossover then I will recommend to refer some genetic books or read about genetic algorithm (GA). Deletion is a unique process in NERD when comparing to vanilla GA. Sofar in my knowledge no one uses deletion as a method to evolve something in vanilla GA. The task of the second policy head is much more simpler it has to deicide where it has to do the mutation, deletion or  crossover.
                 </p>
                 
                 <h2><b>RESULT</b></h2>
                 <p>
-                    The RL agent training has be carried out it in google colab. The results are not incredible but encouraging. When the training started  the output looked something like this.
+                    The RL agent training has been carried out in google colab. The results are not incredible but encouraging. When the training started  the output looked something like this.
                 </p>
                 <p>
                 <b>Epoch: 0 Reward: -1000.0 Loss: -4931.022 </b><br><br>
@@ -161,17 +161,17 @@
                 format = <i>[SMILES , Reward,Fitness]</i>
                 </p>
                 <p>
-                    After training for ten thousand epochs the algorithm was not able to created a valid SMILES but the end result looks interesting. Even though its not SMILES sequence but we can see its starting to understand it.
+                    Even after training for ten thousand epochs the algorithm was not able to create a valid SMILES but the end result looks interesting. Even though its not SMILES sequence, we can see its starting to learn and understand it.
                 </p>
                 <b>Epoch: 10000 Reward: -1000.0 Loss: -0.73 </b><br><br>
                   CCBCCCBCBCC|C||||CC|||||||||||||||||||||||||||...   -10.0 -0.501915 <br>
                   CCBCCCBCBCC|C||||CC|||||||||||||||||||||||||||...   -10.0 -0.502028 <br>
                   CCBCCCBCBCC|C||||CC|||||||||||||||||||||||||||...   -10.0 -0.502080 <br><br>
                 <p>
-                    Ignoring the coding/implementaion error the other likely reasons the algorithm was unsuccessful in generating SMILES sequence is because it may require additonal training time or its because of the subpar accuracy of  RFF model. Training a model to create a sequence from scratch takes lots of computation and thats why I think it is much more suitable for refinig an alredy existing sequence with this algorithm.
+                    Ignoring the coding/implementaion error the other most likely reasons the algorithm was unsuccessful in generating SMILES sequence is because it may require additonal training time or of the subpar accuracy of  RFF model. Training a model to create a sequence from scratch takes lots of computation and thats why I think it is much more suitable for refinig an already existing sequence with this algorithm. This way we can create new sequence from the pre existing sequences.
                 </p>
                 
-                <p>Projects page<a href="https://github.com/Gananath/NERD">https://github.com/Gananath/NERD</a></p>
+                <p>Projects page <a href="https://github.com/Gananath/NERD">https://github.com/Gananath/NERD</a></p>
                
                 
                <br>
