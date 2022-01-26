@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-        <title>ProteinStatsAI: Predict proteins statistics and properties using neural network.</title>
+        <title>Probabilistic Memory Retrieval.</title>
         <meta name="description" content="Classification of Drug Like molecules using Artificial Neural Network">
         <meta name="keywords" content="">
 
@@ -56,7 +56,7 @@
                                     <li><a href="drugai-gan.html">DrugAI-GAN</a></li>
                                 </ul>
                             </li>
-                            <li class="current">
+                            <li>
                                 <a href="proteinstatai.html">ProteinStatsAI</a>
                             </li>
                             <li>
@@ -65,7 +65,7 @@
                             <li>
                                 <a href="nerd.html">NERD</a>
                             </li>
-                            <li>
+                            <li class="current">
                                 <a href="prob_retrieval.html">Probabilistic Memory Retrieval</a>
                             </li> 
                             <li>
@@ -104,8 +104,8 @@
         <section id="page-header" class="clearfix">    
 
             <div class="wrapper">
-                <h1>ProteinStatsAI</h1>
-                <h4>Predict proteins statistics and properties using neural network.</h4>
+                <h1>Probabilistic Memory Retrieval</h1>
+                <h4>A proof of concept in probabilistic retrival of memory using neural networks.</h4>
             </div>
         </section><!-- end hero area -->
 
@@ -119,38 +119,42 @@
 
             <!-- content area -->    
             <section id="content">
+                <p><b>Introduction</b></p>
+                <p> This idea came into existance after reading the article written by Jay Alammar on RETRO model <a href="https://jalammar.github.io/illustrated-retrieval-transformer/">The Illustrated Retrieval Transformer</a>. Its a small but intuitively written post about RETRO model and how it work. Its highly recommend that you read it before continuing this post.</p>
 
-                <p>If you are visiting here for the first time then I would recommend you to my earlier project <a href="https://github.com/Gananath/DrugAI">DrugAI</a> before reading any further. This project used SMILES signature of drug molecules to classify an organic molecule into different drug families.I have reused many functions and codes from this earlier project to this one. The main difference between this project and earlier project is, this is a regression problem whereas the previous one is a classifiction problem.</p>
-
-                <p>Similar to my earlier project I have used Bag of words (n-grams) <a href="https://gananath.github.io/drugai.html">[Link]</a> for  feature genration and then trained it in a nerual network. Here protein <a href="https://en.wikipedia.org/wiki/FASTA_format">FASTA</a> sequence is used as a feature. The <a href="ftp://ftp.ebi.ac.uk/pub/databases/pombase/FASTA/pep.fa.gz">dataset</a> and its <a href="ftp://ftp.ebi.ac.uk/pub/databases/pombase/FASTA/pep.fa.gz">stats</a> were obtained from <a href="https://www.pombase.org/downloads/protein-datasets">pombase</a>. Because the data were in two different files we have to first prepare, clean and save it in a CSV format before doing any machine learning. For data preparation I have used <b>R</b> program because its fast and easier to code. </p>
+                <p>Basic idea of retro model can be summarized into 5 steps
+                <ol>
+                    <li>Get a text query.</li>
+                    <li>Pass the query to a pre-trained model like BERT which ouptut its embeddings. </li>
+                    <li>This embedding vector is used for fetching 'n' number of similar/neigbour textual chunks from a key-value database.</li>
+                    <li>The retrieved 'n' textual chunks were used to train the RETRO model.</li>
+                    <li>The trained RETRO model along with the BERT is used to predict the answers.</li>
+                </ol>
+                The advantage of this type of training is, a small model with fewer number of parameters can outperform a very large model. Because of lesser number of parameters, its training and inference will also be faster. 
+                 </p>
                 
-                <p><b>Predicting targets</b></p>
+                <p><b>Hypothesis/Idea</b></p>
+                <p>In the original RETRO paper the authors have used BERT+DATBASE to retrieve  additonal information, that is, step:1 - step:3 to train a RETRO model. My idea is to combine the step:1 through step:3 and approximate it into a probabilistic model. Instead of retriving similar/neigbour chunks from database we sample from this probabilistic model to fetch similar/neigbouring low dimensional latent vectors. We then use this latent vectors to train a RETRO like MLP model. The idea is, the probabilistic model will act like a memory reservoir for storing data and the MLP will fetch additional data from this reservoir to predict an output. The <b><i>assumption</i></b> is that instead of using a single input the additonal retrived neigbouring vectors will help the model to give more generalized/accurate output without using a large database.</p>
+                
+                <center><img src="images/pm/pm1.jpg" alt="probabilistic_model" style="width:350px;height:100px;"> </center>  
+                
+                <p><b>Building probablisitc memory retrieval model</b></p>
+                <p>The orginal RETRO paper was trained in textual data. Because of contstraint in resources we opted to use MNIST image data to train this memory retriving plus classification model.  In this project a Variational AutoEncoder (VAE) was chosen as the probabilistic model. The VAE model was not built by myself, I have used  <a href="https://github.com/Jackson-Kang/Pytorch-VAE-tutorial/blob/master/01_Variational_AutoEncoder.ipynb">Jackson Kang's VAE Model</a> with slight modifications in latent diminesion.</p>
+                
+                <p><b>Model training</b></p>
+                <p>
+                First the VAE was pre-trained with MNIST data.From this pre-trained VAE model; for an image we can fetch its mean and variance from encoder. Using this mean and variance we can sample 'n' latent vectors(ours n=10) using the below formula, here N is the Normal Distribution.
+                 <center><img src="images/pm/pm2.jpg" alt="" style="width:300px;height:60px;"> </center>  
+                 The 'n' latent vectors generated were used as an input to train a MLP classifer. For calculating latent vectors; mean vector was multiplied with an alpha (N(1,0.5)), this was done to add stochasticity inorder to sample from neigbouring vectors.
+                </p>
 
-                <ul>
-                    <li><p>Mass</p>
-
-                    </li>
-                    <li><p>pI</p>
-
-                    </li>
-                    <li><p>Charge</p>
-
-                    </li>
-                    <li><p>NumResidues</p>
-
-                    </li>
-                    <li><p>CAI</p>
-
-                    </li>
-                </ul>
-
-
-                <p> A simple multilayer perceptron is used for this study which was createad using keras module in python with a theanos backend. The FASTA sequence were converted to features and target values are normalized before feeding it to the neural network model. The model was trained for 15 epochs with a batch size of 200 for one cross validation (recommend to use 10). After training the project, it outputted a net validation loss of <b>0.0173422084428</b> and last validation loss of <b>0.0079427516942</b>. </p>
-
-                <p>Project Github Page: <a href="https://github.com/Gananath/ProteinStatsAI">https://github.com/Gananath/ProteinStatsAI</a></p>
-                <center><img src="images/proteinmodel.png" alt="neural_network" style="width:150px;height:300px;"> </center>  
+                <p><b>Result</b></p>
+                <p>
+                 For a batch size of 1, this model was trained in pytorch with SGD as optimizer and CrossEntropy as loss function. Of the tens of thousands of MNIST images, we have only used hundred images for training and 50 images for testing. The model has been trained for about 1000 plus epochs. In the end our training average loss were about 0.8xxx ish and train accuracy was about 73%. But sadly the testing accuracy hover between 8 and 14%. The lower testing accuracy might be due to training the models with fewer data(100 images). I had to train my models in a lower end cpu which cannot train a model with full mnist data.  The testing and training accuracy might improve on increasing the number of images. I have planned to use google colab for training but I am facing this weird problem in colab, in which it blocks upload of any files in MB.
+                </p>
+                
+                <p>Project Github Page: <a href="https://github.com/Gananath/probablistic_memory_retrieval">https://github.com/Gananath/probablistic_memory_retrieval</a></p>
                 <br>
-
 
             </section><!-- #end content area -->
 
@@ -161,10 +165,10 @@
                 <nav id="secondary-navigation">
                     <ul>
                         <li><a href="index.html">Home Page</a></li>
-                        <li><a href="prob_retrieval.html">Probabilistic Memory Retrieval</a></li>
+                        <li class="current"><a href="prob_retrieval.html">Probabilistic Memory Retrieval</a></li>
                         <li><a href="nerd.html">NERD</a></li>
                         <li><a href="drugai.html">DrugAI</a></li>                        
-                        <li class="current"><a href="proteinstatai.html">ProteinStatsAI</a></li>
+                        <li><a href="proteinstatai.html">ProteinStatsAI</a></li>
                         <li><a href="multi_task.html">BrainGAN</a></li>
                         <li><a href="cv.html">CV</a></li>
                         <li><a href="https://github.com/Gananath">Contact</a></li>
