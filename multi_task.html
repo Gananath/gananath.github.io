@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="./css/custom_bootstrap.css" rel="stylesheet">
+
+    <title>BrainGAN: Multi Task and Multi Domain Learning Experiments with Neural Networks</title>
+    <meta name="description" content="Multi Task Learning Experiments with Neural Networks">
+  
+  <style>
+      .custom-btn {
+            width: 17em !important;
+        }
+        .nav-link:visited,
+            .nav-link:link {
+              border-bottom: 2px solid transparent;
+            }
+
+        .nav-link:hover,
+        .nav-link:active {
+          border-bottom: 2px solid #1bcfc6;
+        }
+  </style>
+  </head>
+  <body>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Header -->
+    <div class="container px-2 border-bottom">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand btn btn-outline-primary p-2 lead text-dark" href="index.html" role="button">Gananath R</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav  ml-auto mb-2 mb-lg-0 lead px-2">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+            </li>
+            <li class="nav-item dropdown ">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                Projects
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li class="dropstart">
+                  <a class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" href="drugai.html">DrugAI
+                </a>
+                  <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="drugai.html">DrugAI</a></li>
+                      <li><a class="dropdown-item" href="drugai-gen.html">DrugAI-gen</a></li>
+                      <li><a class="dropdown-item" href="drugai-gan.html">DrugAI-GAN</a></li>
+                  </ul>
+              </li>
+                <li><a class="dropdown-item" href="proteinstatai.html">ProteinStatsAI</a></li>
+                <li><a class="dropdown-item" href="multi_task.html">BrainGAN</a></li>
+                <li><a class="dropdown-item" href="nerd.html">NERD</a></li>
+                <li><a class="dropdown-item" href="prob_retrieval.html">Probabilistic Memory Retrieval</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="https://gist.github.com/Gananath/5b2f4640fdf96cd87a81a4206a0d3fe8">Other</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="cv.html">CV</a>
+            </li>
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Contacts
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#" onclick="return confirm('Msg me in github or reddit, preferably both.');">E-Mail</a></li>
+                <li><a class="dropdown-item" href="https://github.com/Gananath">GitHub</a></li>
+                <li><a class="dropdown-item" href="#">Facebook</a></li>
+                <li><a class="dropdown-item" href="#">Twitter</a></li>
+                </ul>
+            </li>
+            
+          </ul>
+        </div>
+    </nav>
+    </div>
+  
+  <!-- body -->
+  <div class="container">
+      
+        <div class="row bg-light text-dark p-4 rounded">
+        <h1 class="display-5">BrainGAN</h1>
+        <h5 class="lead">Multi Task and Multi Domain Learning Experiments with Neural Networks.</h5>
+        </div >
+      
+       <div class="row pt-4">
+             <!-- content -->
+          <div class="col-sm-9 border text-secondary rounded p-4 ">
+            <center><img src="https://i.imgur.com/BnbBxhH.png" alt="rotob" > </center>  <br>
+                    <center><p><h6><i>Multi tasking</i></h6></p> </center> <br>
+
+                <p>
+                    <b><i>TLDR: Tried multi task learning with GAN and the outputs are not spectacular.</b></i>
+                </p>
+
+                <p> 
+                    The idea for using neural networks for multi task learning came over an year ago when I saw this image in <a href="http://www.pnas.org/content/early/2017/03/13/1611835114.full">"Overcoming catastrophic forgetting in neural networks"</a> paper. The aim of the paper was to solve the catastrophic forgetting problem. I tried to read and understand the paper but didn't understand nothing. Then I tried to read  a blog written by <a href="https://rylanschaeffer.github.io/content/research/overcoming_catastrophic_forgetting/main.html">Rylan Schaeffer</a> about this paper. I still not fully understood (my maths is weak) the paper but able to grasp the intution behind it. 
+                </p>
+                <center><img src="https://i.imgur.com/req34beg.jpg" alt="elastic weight consolidation"> </center>  
+                <center>
+                <p> From that Rylan Schaeffer's blog:
+                    <br>
+                    <i>
+                        <b>
+
+                    In the picture, θ∗A θA∗ refers to the configuration of θθ that performs well at A. θ∗AθA∗ will be the best configuration of θθ in a neighborhood, but there are a number of configuations in close proximity that will also perform quite well on A; the grey ellipsoid represents the set of these configurations. An ellipsoid is used because some weights and biases can be varied more than others for a comparable increase in error. If the network was subsequently set to learn task B without any interest in remembering task A (i.e. following the error gradient for task B), the network would shift its parameters in the direction of the blue arrow. The optimal solution for B would have a similar error ellipsoid, represented above by the cream ellipsoid.
+                        </b>
+                    </i>
+                </p>
+            </center>
+                <p>
+                    This is what I made out it, Neural networks are universal function approximators. In neural network parameter space there can exists a subset of region where parameters for predicting different multi task problem can also exists simultaneously. In a deep neural network if θ<sub>i</sub> represents the parameter space for image generation or classification and θ<sub>s</sub> for sequence. Then there exists θ<sub>is</sub> where both parameters of sequence and image classification or generation can occur together.
+                </p>
+                <p>Eventhough I had this idea for more than an year buliding one took way too longer. The biggest problem was to find a way to train and predict different tasks using same GAN architecture. After mulling over this problem for some time and carrying out some trial and error this current form of idea came across about three to four months back. The reason why I am sharing my half-baked project here is because I need another pair of eyes to look into this problem.
+
+                </p>
+
+                <h1 class="display-6 py-3">Experiment</h1>
+                <p>
+                    In this experiment I chose to use GAN comparing to any other supervised algorithm or autoencoders. I personally believe GAN's are superior for solving highly generalized tasks such as this one. For my current work I have used infoGAN's architecture but it should easily work with other types of conditional GAN's. The difference is in "conditional"-GAN we pass noise Z and class C in the generator inputs (Z, C) whereas in my experiment instead of class its tasks T (Z, T). That said theoratically we can also build a model with class for specific tasks by passing inputs as (Z, T, C).
+                </p>
+                <center><img src="https://i.imgur.com/zIne1Mi.png" alt="infoGAN"> </center>  <br>
+                <p> 
+                    I have used two different datasets one image and another text sequence. Normally we use Convolution-2D layer for image  and RNN/LSTM/Convolution-1D layer for sequece classification and generation. Instead of this with clever tweaking a common layer can be used for both image as well as sequence classification and generation . For ease, In my project I have used Convolution-1D (can also be done with Convolution-2D and RNN models)  as the neural network model with a common layer for both image and text generation. Also the text sequence dimension was used as the default dimension of  Convolution-1D output layer and mnist image dimension is zero padded to the default dimension.  The USP of this method is that the model is not much different than the vanilla GAN's except the common input layer of discriminator and output layer of generator for predicting different multi tasks. Both sequences and images are generated from the same output layer of  the generator simultaneously.
+                </p>
+            <p><b><i>I also added a resize function to the project in which we can resize the images to particular dimension. A resized image when trained tends to give much more good results.</i></b></p>
+                <img src="images/multitask1.jpg" class="img-fluid mx-auto d-block" alt="padded"> 
+               
+                <center><small>The left image shows the orginal (28,28) dimension MNIST image and the right is an example zero padded image padded to (128,128) </small> </center> 
+                <p>It is also feasible to build a hybrid neural network models such as [Convolution-2D + Convolution-1D] in keras where Convolution-1D is the output layer of the model . I have built this <a href="https://github.com/Gananath/Multi-Task/blob/master/hybrid_model.py">hybrid model in keras (hybrid_model.py)</a> . You have to manually add these models from <kbd>hybrid_model.py</kbd> to <kbd>drugai.py</kbd>.
+                </p>
+                <p>
+                    Most of the codes for this project was taken from my earilier project  <a href="https://github.com/Gananath/DrugAI/tree/master/DrugAI-WGAN">DrugAI-WAN</a> which contains codes from <a href="https://github.com/eriklindernoren/Keras-GAN/tree/master/wgan">eriklindernoren</a> and <a href="https://github.com/farizrahman4u/keras-contrib/blob/master/examples/improved_wgan.py">farizrahman4u</a>. MNIST was used as image dataset and sequence dataset was from my previous project <a href="https://github.com/Gananath/DrugAI/tree/master/DrugAI-WGAN">DrugAI-WAN</a> which is a SMILES chemical dataset. It was trained in python2 in google colab with GPU instance.
+                </P>
+                
+                <h1 class="display-6 py-3">Result</h1>
+                <p>
+                
+                I have trained the generator with both softmax and sigmoid activation functions in the output layer. Eventhough both didn't generated images; sequence tends to converge to ||||||...||| faster with softmax.</p>
+                <img src="images/multi_pred.jpg" class="img-fluid mx-auto d-block" alt="multi_out"> 
+                
+                 
+                From my own experience with previous GAN sequences generation, the output <kbd>|||||...|||</kbd> tells us that the generated sequence are not random and the model had learned some patterns and the model needs some more optimization.</p>
+    <kbd>Current Best 3000 epochs of training</kbd><br>
+     <img src="images/new_multi_pred.jpg" class="img-fluid mx-auto d-block" alt="multi_out"> 
+         
+    <p>With more training the prediction of sequence can be improved. The likely reason why images are not formed completely can be due to my model a convolution-1D which has less parameters (less than 5000) than other image classification models (avg 1,00,000)</p>
+
+                              
+                <h1 class="display-6 py-3">Future studies</h1>
+                <p>
+                    Will try to optimize the model further and try to use different architecture to generate some more results.
+                </p>
+                <p>Project Github Page:<p><s><a href="https://github.com/Gananath/Multi-Task">https://github.com/Gananath/Multi_Task</a></s><br><br>
+                    <a href="https://github.com/Gananath/BrainGAN">https://github.com/Gananath/BrainGAN</a></s>
+                    </p>
+                    </p>
+                
+                <p><b>PS: If possible please acknowledge or cite the github project.</b></p>
+
+          </div>
+          
+           <!-- Sidebar -->
+          <div class="col-sm-3 bg-light">
+
+                <a href="index.html"  class="btn btn-primary btn-block custom-btn mt-1 text-light" role="button">Home</a>
+                <a href="prob_retrieval.html"  class="btn btn-primary btn-block custom-btn mt-1 text-light" role="button">Probabilistic Memory Retrieval</a>
+                <a href="nerd.html"  class="btn btn-primary btn-block custom-btn mt-1 text-light" role="button">NERD</a>
+                <a href="drugai.html"  class="btn btn-primary btn-block custom-btn mt-1 text-light" role="button">DrugAI</a>
+                <a href="proteinstatai.html"  class="btn btn-primary btn-block custom-btn mt-1 text-light" role="button">ProteinStatsAI</a>
+                <a href="multi_task.html"  class="btn btn-outline-primary text-secondary btn-block custom-btn mt-1" role="button">BrainGAN</a>
+                <a href="cv.html"  class="btn btn-primary btn-block custom-btn mt-1 text-light" role="button">CV</a>
+                <a href="https://github.com/Gananath"  class="btn btn-primary btn-block custom-btn mt-1 text-light" role="button">Contact</a>
+
+
+          
+          </div>
+        </div> 
+    
+  </div>
+    
+   <!-- Footer -->
+    <div class="container mt-4 border-top bg-primary rounded-bottom">
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-light">Footer</a></li>
+        </ul>
+        <p class="text-center text-light">© 2022 Made by Me</p>
+      </footer>
+    </div>
+
+  </body>
+</html>
