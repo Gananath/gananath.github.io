@@ -35,4 +35,4 @@ jobs:
         run: |
             git fetch origin testing:testing
             git checkout testing
-            git rm -r *
+            git push
