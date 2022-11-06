@@ -13,6 +13,12 @@ jobs:
     steps:
       - name: git-checkout
         uses: actions/checkout@v3
+        with:
+          token: ${{secrets.PAT}}
+      - name: Removing files from testing
+        run: |
+            github checkout testing
+            github rm -r *
       - name: github branch name
         run: echo running on branch ${GITHUB_REF##*/}
       - name: python installation
@@ -31,11 +37,3 @@ jobs:
         run: python ./src/build.py
       - name: Run Integration Tests
         run: pytest ./src/tests/integration_test.py
-        # Deploy to local repo
-      - name: Deploy
-        uses: s0/git-publish-subdir-action@develop
-        env:
-          REPO: self
-          BRANCH: testing
-          FOLDER: build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
