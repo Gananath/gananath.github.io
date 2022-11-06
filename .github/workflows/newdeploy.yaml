@@ -13,12 +13,6 @@ jobs:
     steps:
       - name: git-checkout
         uses: actions/checkout@v3
-        with:
-          token: ${{secrets.PAT}}
-      - name: Removing files from testing
-        run: |
-            github checkout testing
-            github rm -r *
       - name: github branch name
         run: echo running on branch ${GITHUB_REF##*/}
       - name: python installation
@@ -37,3 +31,7 @@ jobs:
         run: python ./src/build.py
       - name: Run Integration Tests
         run: pytest ./src/tests/integration_test.py
+      - name: Removing files from testing
+        run: |
+            github checkout testing
+            github rm -r *
