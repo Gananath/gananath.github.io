@@ -36,5 +36,9 @@ jobs:
             git fetch origin testing:testing
             git checkout testing
             git add --all
-            git commit -m "Automatic commiting"
-            git push --set-upstream origin testing
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+      - name: Push commits
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
