@@ -37,6 +37,7 @@ jobs:
             rm -rf ./src/__pycache__
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
+            git clean -dxf
             git fetch origin testing:testing
             git checkout testing
             git add --all
