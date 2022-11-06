@@ -13,13 +13,8 @@ jobs:
     steps:
       - name: git-checkout
         uses: actions/checkout@v3
-      - name: Testing
-        run: |
-            echo "Testing"
-            echo
-            echo $(ls)
-            echo
-      - run: echo running on branch ${GITHUB_REF##*/}
+      - name: github branch name
+        run: echo running on branch ${GITHUB_REF##*/}
       - name: python installation
         uses: actions/setup-python@v4
         with:
@@ -30,3 +25,15 @@ jobs:
             pip install beautifulsoup4==4.11.0
             pip install pytest==7.0.1
             pip install PyYAML==5.4.1
+      - name: Run Unit Tests
+        run: pytest ./src/tests/unit_test.py
+      - name: Build and generate webpages
+        run: python ./src/build.py
+      - name: Run Integration Tests
+        run: pytest ./src/tests/integration_test.py
+      - name: Testing
+        run: |
+            echo "Testing"
+            echo
+            echo $(ls)
+            echo
