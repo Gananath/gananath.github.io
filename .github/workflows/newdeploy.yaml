@@ -33,11 +33,12 @@ jobs:
         run: pytest ./src/tests/integration_test.py
       - name: Commit to testing
         run: |
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
             git fetch origin testing:testing
             git checkout testing
             git add --all
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
+            git commit -m "auto creating webpages"
       - name: Push commits
         uses: ad-m/github-push-action@master
         with:
