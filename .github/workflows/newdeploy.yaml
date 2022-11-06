@@ -31,16 +31,11 @@ jobs:
         run: python ./src/build.py
       - name: Run Integration Tests
         run: pytest ./src/tests/integration_test.py
-      - name: Add and commit changes to gh-pages branch
-        run: |
-          git checkout testing
-          git rm -r * 
-          git config --local user.email 'action@github.com'
-          git config --local user.name 'GitHub Action'
-          git add -all
-          git commit -m 'Compiled website'
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: testing
+        # Deploy to local repo
+      - name: Deploy
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: testing
+          FOLDER: build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
