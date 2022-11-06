@@ -35,4 +35,6 @@ jobs:
         run: |
             git fetch origin testing:testing
             git checkout testing
-            git push
+            git add -all
+            git commit -m "Automatic commiting"
+            git push --set-upstream origin testing
