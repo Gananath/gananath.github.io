@@ -38,6 +38,7 @@ jobs:
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
             git fetch origin testing:testing
+            git add --all
             git commit -m "adding files"
             git checkout testing
             git add --all
