@@ -31,10 +31,10 @@ jobs:
         run: python ./src/build.py
       - name: Run Integration Tests
         run: pytest ./src/tests/integration_test.py
-      - name: Removing files from testing
+      - name: Commit to testing
         run: |
             git fetch origin testing:testing
             git checkout testing
-            git add -all
+            git add --all
             git commit -m "Automatic commiting"
             git push --set-upstream origin testing
