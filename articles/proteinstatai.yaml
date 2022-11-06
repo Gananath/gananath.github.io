@@ -1,0 +1,100 @@
+---
+filename: proteinstatai
+other_menu: false
+project_menu: true
+sidebar: true
+title: ProteinStatsAI
+desc: Predict proteins statistics and properties using neural network.
+content: |
+    <p>
+        If you are visiting here for the first time
+        then I would recommend you to my earlier
+        project <a href=
+        "https://github.com/Gananath/DrugAI">DrugAI</a>
+        before reading any further. This project
+        used SMILES signature of drug molecules to
+        classify an organic molecule into different
+        drug families.I have reused many functions
+        and codes from this earlier project to this
+        one. The main difference between this
+        project and earlier project is, this is a
+        regression problem whereas the previous one
+        is a classifiction problem.
+    </p>
+    <p>
+        Similar to my earlier project I have used
+        Bag of words (n-grams) <a href=
+        "https://gananath.github.io/drugai.html">[Link]</a>
+        for feature genration and then trained it
+        in a nerual network. Here protein <a href=
+        "https://en.wikipedia.org/wiki/FASTA_format">
+        FASTA</a> sequence is used as a feature.
+        The <a href=
+        "ftp://ftp.ebi.ac.uk/pub/databases/pombase/FASTA/pep.fa.gz">
+        dataset</a> and its <a href=
+        "ftp://ftp.ebi.ac.uk/pub/databases/pombase/FASTA/pep.fa.gz">
+        stats</a> were obtained from <a href=
+        "https://www.pombase.org/downloads/protein-datasets">
+        pombase</a>. Because the data were in two
+        different files we have to first prepare,
+        clean and save it in a CSV format before
+        doing any machine learning. For data
+        preparation I have used <kbd>R</kbd>
+        program because its fast and easier to
+        code.
+    </p>
+    <h1 class="display-6 py-3">
+        Predicting targets
+    </h1>
+    <ul>
+        <li>
+            <p>
+                Mass
+            </p>
+        </li>
+        <li>
+            <p>
+                pI
+            </p>
+        </li>
+        <li>
+            <p>
+                Charge
+            </p>
+        </li>
+        <li>
+            <p>
+                NumResidues
+            </p>
+        </li>
+        <li>
+            <p>
+                CAI
+            </p>
+        </li>
+    </ul>
+    <p>
+        A simple multilayer perceptron is used for
+        this study which was createad using keras
+        module in python with a theanos backend.
+        The FASTA sequence were converted to
+        features and target values are normalized
+        before feeding it to the neural network
+        model. The model was trained for 15 epochs
+        with a batch size of 200 for one cross
+        validation (recommend to use 10). After
+        training the project, it outputted a net
+        validation loss of <b>0.0173422084428</b>
+        and last validation loss of
+        <b>0.0079427516942</b>.
+    </p>
+    <p>
+        Project Github Page: <a href=
+        "https://github.com/Gananath/ProteinStatsAI">
+        https://github.com/Gananath/ProteinStatsAI</a>
+    </p>
+    <center>
+        <img src="images/proteinmodel.png" alt=
+        "neural_network" style=
+        "width:150px;height:300px;">
+    </center><br>

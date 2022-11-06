@@ -1,0 +1,218 @@
+---
+filename: real
+other_menu: true
+project_menu: false
+sidebar: false
+title: Real
+desc: Real number generation using neural network classification.
+content: |
+    <p>
+    <b>Note:</b> This is a personal project of
+    my own; I believe/assume this is an
+    original work and similar work has not been
+    carried out by anyone else.
+    </p>
+    <p>
+    It seesm most people want to know what this
+    used for; this is a comment I wrote in
+    reddit
+    </p>
+    <p style="background-color:#B6ACAC">
+    <i style="color:white">"I try to explain
+    with a little example say we need to
+    predict Partition coefficient of a chemical
+    molecule. A partition coefficient(P) or Log
+    P can take any real values both positive or
+    negative eg: Acetamide= -1.16. If we want
+    to predict such values for a chemical
+    molecule in neural network then we have to
+    use linear activation function as last
+    layer and need to train it in a regression
+    way, which may or may not succeed.<br/>
+    My idea is to avoid this step and predict
+    real numbers as binary classification with
+    a certain length. As a proof of my idea I
+    made a auto encoder which was able to get a
+    fair good but not the best predictions"</i>
+    </p>
+    <p>
+    There are two ways, that I know of, to
+    generate real numbers using neural networks
+    and those are the regression and seq2seq
+    approaches. From experience I can say that
+    both regression and recurrent(seq2seq)
+    methods are computationally heavy and I
+    also assume the transformer(seq2seq)
+    technique may also need more computation.
+    In this project my goal was to generate
+    real numbers using classification only
+    approach with a simple neural network. The
+    advantages of such method will be fast
+    training and quick prediciton of outputs.
+    An another novel application for this is
+    building a neural network enabled
+    calculator for deterministic real number
+    operations.
+    </p>
+    <h2>
+    Real to Vectors.
+    </h2>
+    <p>
+    Real number in its real form cannot be used
+    for a classification method. We need to
+    convert real numbers to a binary vector
+    form. First we need to separate real
+    numbers into its three corresponding
+    <b>Sign</b>, <b>Integers</b> and
+    <b>Decimal/Placeholder</b> parts. An
+    example for such breakup can be seen in the
+    below image.
+    </p>
+    <center>
+    <img alt="real_example" src="images/real_example.jpg"
+    style="width:288px;height:235px;"/>
+    </center><br/>
+    The sign determining value $k$ can be found
+    by<br/>
+    <br/>
+    <center>
+    $k = argmax(softmax(\mathbb{R}^{2}))$
+    </center><br/>
+    For integers we need to first find the matching
+    vector $\mathbf{i}$. The vector can then be
+    transformed to a scalar $i$ by taking dot
+    product with vector having list of values which
+    are powers of 10. Here $d$ is the maximum
+    integer length.<br/>
+    <br/>
+    <center>
+    $\mathbf{i} =
+    argmax_{row}(softmax_{row}(\mathbb{R}^{d
+    \times10}))$
+    </center><br/>
+    <center>
+    $i = \mathbf{i} \cdot [10^{d..0} ]$
+    </center><br/>
+    The decimal's placeholder value $p$ which
+    determines where the decimal should be placed
+    in the integers can be obtained by<br/>
+    <br/>
+    <center>
+    $p = argmax(softmax(\mathbb{R}^{d}))$
+    </center><br/>
+    In the end real numbers can be calculated using
+    the formula.<br/>
+    <br/>
+    <center>
+    $\mathbb{R}= \left \{ (-1)^{k}\times i
+    \times10^{-p} \right \}$
+    </center><br/>
+    <small><i>Note: I am mediocre in mathematics,
+    kindly forgive any errors</i></small>
+    <h2>
+    Neural Network.
+    </h2>
+    <p>
+    A linear neural network was used for this
+    project but any other varieties of neural
+    network will also work. Because my primary
+    aim was to validate my idea I had used a
+    autoencoder model to generate real numbers.
+    The autoencoder model has three input heads
+    and three output heads.
+    </p>
+    <ul>
+    <li>
+    <p>
+            Input Heads: Sign, Integers,
+            Decimal
+        </p>
+    </li>
+    <li>
+    <p>
+            Output Heads: Sign, Integers,
+            Decimal
+        </p>
+    </li>
+    </ul>The loss function used was a binary
+    crossentropy loss for the three output heads
+    plus a custom <b>difference loss</b> function.
+    The difference loss function finds the
+    difference between our target and output
+    integers. This loss function in its current
+    form is a non differentiable since it have
+    argmax's in its computation. I was planning to
+    make differentiable version of this loss
+    function with softargmax but was not able to
+    find a good implementation for the same in
+    pytorch.
+    <h2>
+    Result
+    </h2>
+    <p>
+    <br/>
+    Real: [29.462 10.119 16. 54.483 81.462 77.
+    5.2 64.73 17.3 17.25 ]<br/>
+    Pred: [52.462, 52.119, 16.0, 92.483,
+    52.462, 77.0, 5.2, 64.73, 17.3, 17.25]<br/>
+    Loss: 0.7908857719954486<br/>
+    <br/>
+    Real: [77.97 48.1 51.95 25.358 71.813 21.05
+    92.2 84.6 61.4 51.272]<br/>
+    Pred: [77.97, 48.1, 51.95,
+    49.358000000000004, 46.813, 21.05, 92.2,
+    84.60000000000001, 61.400000000000006,
+    29.272000000000002]<br/>
+    Loss: 0.27221214151122436<br/>
+    <br/>
+    Real: [49.9 62.75 51.209 2.33 0.2 45.3
+    24.188 7.83 23.14 75.9 ]<br/>
+    Pred: [49.900000000000006, 62.75, 17.209,
+    2.33, 0.2, 45.300000000000004, 25.188,
+    7.83, 23.14, 75.9]<br/>
+    Loss: 0.35590826826738353<br/>
+    <br/>
+    The outputs are very encouraging and neural
+    network was able to predict majoririty of
+    real numbers correctly. Loss function
+    corresponding to Sign and Decimal output
+    heads were optimized properly. But In my
+    option the stochasticity of generated real
+    numbers was due to the sub optimal loss
+    functions used for integers head. A much
+    more improved integer head loss function
+    might increase the accuracy of prediction.
+    Overfitting the model also helped to attain
+    good predicitons, adding dropouts
+    significantly affected the output results.
+    </p>
+    <p>
+    Project Github Page:
+    <a href="https://github.com/Gananath/Real">https://github.com/Gananath/Real
+    </a>
+    </p><br/>
+    <h2>
+    Future Plans.
+    </h2>
+    <ul>
+    <li>
+    <p>
+            Improving the accuracy of
+            prediction.
+        </p>
+    </li>
+    <li>
+    <p>
+            Building a neural network
+            calculator with this idea.
+        </p>
+    </li>
+    <li>
+    <p>
+            Posible application includes all
+            the works which needs real numbers
+            eg, velocity prediction, drug
+            likeness prediciton etc.
+        </p>
+    </li>
+    </ul>

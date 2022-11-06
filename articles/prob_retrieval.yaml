@@ -1,0 +1,158 @@
+---
+filename: prob_retrieval
+other_menu: false
+project_menu: true
+sidebar: true
+title: Probabilistic Memory Retrieval
+desc: >
+    A proof of concept in probabilistic retrival of memory using neural
+    networks.
+content: |
+    <img src="images/pm/pm_.jpg" alt=
+    "probabilistic_model" class=
+    "img-fluid mx-auto d-block">
+    <h1 class="display-6 py-2">
+        Introduction
+    </h1>
+    <p>
+        This idea came into existance after reading
+        the article written by Jay Alammar on RETRO
+        model <a href=
+        "https://jalammar.github.io/illustrated-retrieval-transformer/">
+        The Illustrated Retrieval Transformer</a>.
+        Its a small but intuitively written post
+        about RETRO model and how it work. Its
+        highly recommend that you read it before
+        continuing this post.
+    </p>
+    <p>
+        Basic idea of retro model can be summarized
+        into 5 steps
+    </p>
+    <ol>
+        <li>Get a text query.
+        </li>
+        <li>Pass the query to a pre-trained model
+        like BERT which ouptut its embeddings.
+        </li>
+        <li>This embedding vector is used for
+        fetching 'n' number of similar/neigbour
+        textual chunks from a key-value database.
+        </li>
+        <li>The retrieved 'n' textual chunks were
+        used to train the RETRO model.
+        </li>
+        <li>The trained RETRO model along with the
+        BERT is used to predict the answers.
+        </li>
+    </ol>The advantage of this type of training is,
+    a small model with fewer number of parameters
+    can outperform a very large model. Because of
+    lesser number of parameters, its training and
+    inference will also be faster.
+    <h1 class="display-6 py-2">
+        Hypothesis/Idea
+    </h1>
+    <p>
+        In the original RETRO paper the authors
+        have used BERT+DATBASE to retrieve
+        additonal information, that is, step:1 -
+        step:3 to train a RETRO model. My idea is
+        to combine the step:1 through step:3 and
+        approximate it into a probabilistic model.
+        Instead of retriving similar/neigbour
+        chunks from database we sample from this
+        probabilistic model to get
+        similar/neigbouring low dimensional latent
+        vectors. We then use this latent vectors to
+        train a RETRO like MLP model. The idea is,
+        the probabilistic model will act like a
+        memory reservoir for storing data and the
+        MLP will fetch additional data from this
+        reservoir to predict an output. The
+        <b><i>assumption</i></b> is that instead of
+        using a single input the additonal retrived
+        neigbouring vectors will help the model to
+        give more generalized/accurate output
+        without using a large database.
+    </p><img src="images/pm/pm1.jpg" alt=
+    "probabilistic_model" class=
+    "img-fluid mx-auto d-block">
+    <h1 class="display-6 py-2">
+        Building probablisitc memory retrieval
+        model
+    </h1>
+    <p>
+        The orginal RETRO paper was trained in
+        textual data. Because of contstraint in
+        resources we opted to use MNIST image data
+        to train this memory retriving plus
+        classification model. In this project a
+        Variational AutoEncoder (VAE) was chosen as
+        the probabilistic model,other probabilistic
+        model should also work given we can sample
+        some latent vectors. The VAE model was not
+        built by myself, I have used <a href=
+        "https://github.com/Jackson-Kang/Pytorch-VAE-tutorial/blob/master/01_Variational_AutoEncoder.ipynb">
+        Jackson Kang's VAE Model</a> with slight
+        modifications in latent diminesion.
+    </p>
+    <h1 class="display-6 py-2">
+        Model training
+    </h1>
+    <p>
+        First the VAE was pre-trained with MNIST
+        data.From this pre-trained VAE model; for
+        an image we can fetch its mean and variance
+        from encoder. Using this mean and variance
+        we can sample 'n' latent vectors(ours n=10)
+        using the below formula, here N is the
+        Normal Distribution. For calculating latent
+        vectors; mean vector was multiplied with an
+        alpha (N(1,0.5)), this was done to add
+        stochasticity inorder to sample from
+        neigbouring vectors. <img src=
+        "images/pm/pm2.jpg" alt="" class=
+        "img-fluid mx-auto d-block"> The 'n' latent
+        vectors generated were used as an input to
+        train a MLP classifer. We have used latent
+        vectors to train the MLP instead of the
+        generated images from VAE due of its lesser
+        number of dimensions. The lower dimensional
+        latent vector encodes the important
+        features and it also helps in faster
+        training and inference. Another
+        hypothetical reason for choosing the latent
+        vector is that we beileve brain encodes and
+        stores informations in smaller dimensions.
+        Everyday, Everytime human brain is
+        bombarded with signals from various analog
+        sensory inputs such eye, ear, skin etc.
+        Human brain is a finite storarge machine
+        and it will unlikely store all these higher
+        dimensonal inputs from these sensors as raw
+        data. Its more advantageous to store
+        memories in lower dimensions and retrieve
+        those memories probablistically.
+    </p>
+    <h1 class="display-6 py-2">
+        Result
+    </h1>
+    <p>
+        For a batch size of 1, this model was
+        trained in pytorch with SGD as optimizer
+        and CrossEntropy as loss function.I have
+        trained it for 3 epochs using MNIST full
+        data and the last results are.
+    </p>
+    <ol>
+        <li>Training Accuracy: <b>74%</b>
+        </li>
+        <li>Testing Accuracy: <b>73%</b>
+        </li>
+    </ol>
+    <p>
+        Project Github Page: <a href=
+        "https://github.com/Gananath/probablistic_memory_retrieval">
+        https://github.com/Gananath/probablistic_memory_retrieval</a>
+    </p><br>

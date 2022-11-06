@@ -1,0 +1,238 @@
+---
+filename: multi_task
+other_menu: false
+project_menu: true
+sidebar: true
+title: BrainGAN
+desc: Multi Task and Multi Domain Learning Experiments with Neural Networks.
+content: |
+    <center>
+        <img src="https://i.imgur.com/BnbBxhH.png"
+        alt="rotob">
+    </center><br>
+    <center>
+        <h6>
+            <i>Multi tasking</i>
+        </h6>
+    </center><br>
+    <p>
+        <b><i>TLDR: Tried multi task learning with
+        GAN and the outputs are not
+        spectacular.</i></b>
+    </p>
+    <p>
+        The idea for using neural networks for
+        multi task learning came over an year ago
+        when I saw this image in <a href=
+        "http://www.pnas.org/content/early/2017/03/13/1611835114.full">
+        "Overcoming catastrophic forgetting in
+        neural networks"</a> paper. The aim of the
+        paper was to solve the catastrophic
+        forgetting problem. I tried to read and
+        understand the paper but didn't understand
+        nothing. Then I tried to read a blog
+        written by <a href=
+        "https://rylanschaeffer.github.io/content/research/overcoming_catastrophic_forgetting/main.html">
+        Rylan Schaeffer</a> about this paper. I
+        still not fully understood (my maths is
+        weak) the paper but able to grasp the
+        intution behind it.
+    </p><img src="https://i.imgur.com/req34beg.jpg"
+    class="img-fluid mx-auto d-block" alt=
+    "elastic weight consolidation">
+    <center>
+        <p>
+            From that Rylan Schaeffer's blog:<br>
+            <i><b>In the picture, θ∗A θA∗ refers to
+            the configuration of θθ that performs
+            well at A. θ∗AθA∗ will be the best
+            configuration of θθ in a neighborhood,
+            but there are a number of configuations
+            in close proximity that will also
+            perform quite well on A; the grey
+            ellipsoid represents the set of these
+            configurations. An ellipsoid is used
+            because some weights and biases can be
+            varied more than others for a
+            comparable increase in error. If the
+            network was subsequently set to learn
+            task B without any interest in
+            remembering task A (i.e. following the
+            error gradient for task B), the network
+            would shift its parameters in the
+            direction of the blue arrow. The
+            optimal solution for B would have a
+            similar error ellipsoid, represented
+            above by the cream ellipsoid.</b></i>
+        </p>
+    </center>
+    <p>
+        This is what I made out it, Neural networks
+        are universal function approximators. In
+        neural network parameter space there can
+        exists a subset of region where parameters
+        for predicting different multi task problem
+        can also exists simultaneously. In a deep
+        neural network if θ<sub>i</sub> represents
+        the parameter space for image generation or
+        classification and θ<sub>s</sub> for
+        sequence. Then there exists θ<sub>is</sub>
+        where both parameters of sequence and image
+        classification or generation can occur
+        together.
+    </p>
+    <p>
+        Eventhough I had this idea for more than an
+        year buliding one took way too longer. The
+        biggest problem was to find a way to train
+        and predict different tasks using same GAN
+        architecture. After mulling over this
+        problem for some time and carrying out some
+        trial and error this current form of idea
+        came across about three to four months
+        back. The reason why I am sharing my
+        half-baked project here is because I need
+        another pair of eyes to look into this
+        problem.
+    </p>
+    <h1 class="display-6 py-3">
+        Experiment
+    </h1>
+    <p>
+        In this experiment I chose to use GAN
+        comparing to any other supervised algorithm
+        or autoencoders. I personally believe GAN's
+        are superior for solving highly generalized
+        tasks such as this one. For my current work
+        I have used infoGAN's architecture but it
+        should easily work with other types of
+        conditional GAN's. The difference is in
+        "conditional"-GAN we pass noise Z and class
+        C in the generator inputs (Z, C) whereas in
+        my experiment instead of class its tasks T
+        (Z, T). That said theoratically we can also
+        build a model with class for specific tasks
+        by passing inputs as (Z, T, C).
+    </p><img src="https://i.imgur.com/zIne1Mi.png"
+    class="img-fluid mx-auto d-block" alt=
+    "infoGAN">
+    <p>
+        I have used two different datasets one
+        image and another text sequence. Normally
+        we use Convolution-2D layer for image and
+        RNN/LSTM/Convolution-1D layer for sequece
+        classification and generation. Instead of
+        this with clever tweaking a common layer
+        can be used for both image as well as
+        sequence classification and generation .
+        For ease, In my project I have used
+        Convolution-1D (can also be done with
+        Convolution-2D and RNN models) as the
+        neural network model with a common layer
+        for both image and text generation. Also
+        the text sequence dimension was used as the
+        default dimension of Convolution-1D output
+        layer and mnist image dimension is zero
+        padded to the default dimension. The USP of
+        this method is that the model is not much
+        different than the vanilla GAN's except the
+        common input layer of discriminator and
+        output layer of generator for predicting
+        different multi tasks. Both sequences and
+        images are generated from the same output
+        layer of the generator simultaneously.
+    </p>
+    <p>
+        <b><i>I also added a resize function to the
+        project in which we can resize the images
+        to particular dimension. A resized image
+        when trained tends to give much more good
+        results.</i></b>
+    </p><img src="images/multitask1.jpg" class=
+    "img-fluid mx-auto d-block" alt="padded">
+    <center>
+        <small>The left image shows the orginal
+        (28,28) dimension MNIST image and the right
+        is an example zero padded image padded to
+        (128,128)</small>
+    </center>
+    <p>
+        It is also feasible to build a hybrid
+        neural network models such as
+        [Convolution-2D + Convolution-1D] in keras
+        where Convolution-1D is the output layer of
+        the model . I have built this <a href=
+        "https://github.com/Gananath/Multi-Task/blob/master/hybrid_model.py">
+        hybrid model in keras (hybrid_model.py)</a>
+        . You have to manually add these models
+        from <kbd>hybrid_model.py</kbd> to
+        <kbd>drugai.py</kbd>.
+    </p>
+    <p>
+        Most of the codes for this project was
+        taken from my earilier project <a href=
+        "https://github.com/Gananath/DrugAI/tree/master/DrugAI-WGAN">
+        DrugAI-WAN</a> which contains codes from
+        <a href=
+        "https://github.com/eriklindernoren/Keras-GAN/tree/master/wgan">
+        eriklindernoren</a> and <a href=
+        "https://github.com/farizrahman4u/keras-contrib/blob/master/examples/improved_wgan.py">
+        farizrahman4u</a>. MNIST was used as image
+        dataset and sequence dataset was from my
+        previous project <a href=
+        "https://github.com/Gananath/DrugAI/tree/master/DrugAI-WGAN">
+        DrugAI-WAN</a> which is a SMILES chemical
+        dataset. It was trained in python2 in
+        google colab with GPU instance.
+    </p>
+    <h1 class="display-6 py-3">
+        Result
+    </h1>
+    <p>
+        I have trained the generator with both
+        softmax and sigmoid activation functions in
+        the output layer. Eventhough both didn't
+        generated images; sequence tends to
+        converge to ||||||...||| faster with
+        softmax.
+    </p><img src="images/multi_pred.jpg" class=
+    "img-fluid mx-auto d-block" alt="multi_out">
+    From my own experience with previous GAN
+    sequences generation, the output
+    <kbd>|||||...|||</kbd> tells us that the
+    generated sequence are not random and the model
+    had learned some patterns and the model needs
+    some more optimization.<kbd>Current Best 3000
+    epochs of training</kbd><br>
+    <img src="images/new_multi_pred.jpg" class=
+    "img-fluid mx-auto d-block" alt="multi_out">
+    <p>
+        With more training the prediction of
+        sequence can be improved. The likely reason
+        why images are not formed completely can be
+        due to my model a convolution-1D which has
+        less parameters (less than 5000) than other
+        image classification models (avg 1,00,000)
+    </p>
+    <h1 class="display-6 py-3">
+        Future studies
+    </h1>
+    <p>
+        Will try to optimize the model further and
+        try to use different architecture to
+        generate some more results.
+    </p>
+    <p>
+        Project Github Page:
+    </p>
+    <p>
+        <s><a href=
+        "https://github.com/Gananath/Multi-Task">https://github.com/Gananath/Multi_Task</a></s>
+        <br>
+        <a href=
+        "https://github.com/Gananath/BrainGAN">https://github.com/Gananath/BrainGAN</a>
+    </p>
+    <p>
+        <b>PS: If possible please acknowledge or
+        cite the github project.</b>
+    </p>

@@ -1,0 +1,217 @@
+---
+filename: nerd
+other_menu: false
+project_menu: true
+sidebar: true
+title: NERD
+desc: Evolution of Discrete data with Reinforcement Learning.
+content: |
+    <p>
+    If you are visiting here for the first time
+    then I would recommend you to read my
+    earlier project <a href=
+    "drugai-gan.html">DrugAI</a> before going
+    any further. I am reusing many ideas and
+    functions that I have used in DrugAI
+    particularly from wGAN. In DrugAI project I
+    have used SMILES (Simplified Molecular
+    Input Line Entry System) for generating and
+    classifying drug like molecules. In simple
+    terms SMILES are ASCII strings representing
+    a struture of chemical molecule. For
+    example methane(CH4) in SMILES would be
+    written as "C" without quotes and ethane
+    (C2H6) as "CC".
+    </p>
+    <p>
+    NERD is the acronym for <kbd><i>Neural
+    Experimenting Rl algorithm for Discrete
+    data</i></kbd> (just wanted a cool name for
+    the project). NERD has ideas taken from
+    Genetic Algorithm and Reinforcement
+    Learning and combined it. You can think
+    NERD of as a chef, musician, scientist etc.
+    who experiments with his/her ingredients,
+    music notes or materials to create novel
+    cuisines or music or objects. In this
+    project the aim of NERD was to evolve
+    chemical molecules from scratch which are
+    in the SMILES format. I dont know if any
+    one else has already discovered such an
+    algorithm and hoping I am not reinventing
+    the wheel. The below image shows how NERD
+    algorithm works.
+    </p><img src="images/nerd.jpg" class=
+    "img-fluid mx-auto d-block" alt="NERD">
+    <h1 class="display-6 py-2">
+    NERD Algorithm
+    </h1>
+    <p>
+    NERD has two important parts, an agent
+    which is used for Reinforcement Learning
+    and Reward-Fitness Function (RFF) which
+    outputs reward and fitness for a given
+    SMILES molecule. Both of these parts have
+    neural network models at its core
+    </p>
+    <h1 class="display-6 py-2">
+    Reward-Fitness Funtion
+    </h1>
+    <p>
+    RFF at the center consists of a convolution
+    1D classification neural network. RFF's
+    classification model and the RL Agent have
+    similar neural network architecture except
+    the inputs and outputs. The output of RFF
+    consists of a discrete reward value as well
+    as a continous fitness scores. The reward
+    value is used for training the RL agent
+    whereas the fitness score is used for
+    selecting the best SMILES for next step.
+    The reward for a particlar SMILES struture
+    is determined by three things.
+    </p>
+    <ol>
+    <li>Whether classified SMILES is real or
+    fake.
+    </li>
+    <li>Whether the parent SMILES is same as
+    the child SMILES.
+    </li>
+    <li>Whether the generated sequence is in
+    SMILES format.
+    </li>
+    </ol>Fitness score on the other hand tells how
+    good the classification is. Fake classification
+    gets a negative fitness score. Fitness score
+    along with reward score is used for selecting
+    best candiates for next seed.
+    <p>
+    In my current project, RFF's neural network
+    is trained for 200 epochs. We have used
+    real and fake SMILES data to train this
+    neural network. The current accuracy of
+    RFF's model is near 50-60 ish
+    percentage.Not a good metrics but chose
+    this model for my lack of computational
+    power. We will use this model as a starting
+    function for creating reward and fitness
+    score.
+    </p>
+    <h1 class="display-6 py-2">
+    Reinforcement Learning Agent
+    </h1>
+    <p>
+    For NERD I have used a vanilla actor-critic
+    model as an RL agent. There is no other
+    reasons for choosing actor-critic model
+    except being easier to code in pytorch and
+    gives some what stable results. I have
+    followed the similar coding paradigm as
+    that of the official pytorch actor-critic
+    implementation. The main difference in
+    NERD's actor-critic model and official
+    pytorch's actor critic model is the inputs
+    and outputs. There are two inputs in NERD
+    one for the state and an another for z
+    vector. z vector is random numbers from
+    normal distribution. I tried training NERD
+    without z vector but the sequence generated
+    lack variety. The outputs for offical
+    pytorch implementaion have two heads a
+    policy head and a value head whereas NERD
+    have two policy head and a single value
+    head. The two policy heads in NERD's agent
+    have to make two separate decisions.
+    </p>
+    <ol>
+    <li>First Policy: What to do?
+    </li>
+    <li>Second Policy: Where to do it?
+    </li>
+    </ol>There are three things first policy head
+    can do. It can either mutate or delete a
+    character in the SMILES format or it can do
+    crossover. If you want to know more about
+    mutation, deletion and crossover then I will
+    recommend to refer some genetic books or read
+    about genetic algorithm (GA). Deletion is a
+    unique process in NERD when comparing to
+    vanilla GA. Sofar in my knowledge no one uses
+    deletion as a method to evolve something in
+    vanilla GA. The task of the second policy head
+    is much more simpler it has to deicide where it
+    has to do the mutation, deletion or crossover.
+    <h1 class="display-6 py-2">
+    RESULT
+    </h1>
+    <h5>
+    Sequence
+    </h5>
+    <p>
+    The RL agent training has been carried out
+    in google colab. The results are not
+    incredible but encouraging. When the
+    training started the output looked
+    something like this.
+    </p><kbd>Epoch: 0 Reward: -1000.0 Loss:
+    -4931.022</kbd>
+    <blockquote class="blockquote">
+    rC#1)+S6B4[))|||||||||||||||||||||||||||||||||...
+    -10.0 -0.821050<br>
+    rC#1)+S6B4[))|||||||||||||||||||||||||||||||||...
+    -10.0 -0.900526<br>
+    rC#1)+S6B4[))|||||||||||||||||||||||||||||||||...
+    -10.0 -0.956724<br>
+    <br>
+    <figcaption class="blockquote-footer">
+        format = <i>[SMILES ,
+        Reward,Fitness]</i>
+    </figcaption>
+    </blockquote>
+    <p>
+    Even after training for ten thousand epochs
+    the algorithm was not able to create a
+    valid SMILES but the end result looks
+    interesting. Even though its not SMILES
+    sequence, we can see its starting to learn
+    and understand it.
+    </p><kbd>Epoch: 10000 Reward: -1000.0 Loss:
+    -0.73</kbd>
+    <blockquote class="blockquote">
+    CCBCCCBCBCC|C||||CC|||||||||||||||||||||||||||...
+    -10.0 -0.501915<br>
+    CCBCCCBCBCC|C||||CC|||||||||||||||||||||||||||...
+    -10.0 -0.502028<br>
+    CCBCCCBCBCC|C||||CC|||||||||||||||||||||||||||...
+    -10.0 -0.502080<br>
+    <br>
+    </blockquote>
+    <p>
+    Ignoring the coding/implementaion error the
+    other most likely reasons the algorithm was
+    unsuccessful in generating SMILES sequence
+    is because it may require additonal
+    training time or of the subpar accuracy of
+    RFF model. Training a model to create a
+    sequence from scratch takes lots of
+    computation and thats why I think it is
+    much more suitable for refinig an already
+    existing sequence with this algorithm. This
+    way we can create new sequence from the pre
+    existing sequences.
+    </p>
+    <h1 class="display-6 py-2">
+    Images
+    </h1>
+    <p>
+    <b>Update: 2 DEC 2019</b><br>
+    <img src=
+    "https://raw.githubusercontent.com/Gananath/NERD/master/NERD_IMAGES/nerd_mnist.png"
+    alt="nerd_mnist" class=
+    "img-fluid mx-auto d-block">
+    </p>
+    <p>
+    Projects page <a href=
+    "https://github.com/Gananath/NERD">https://github.com/Gananath/NERD</a>
+    </p><br>
