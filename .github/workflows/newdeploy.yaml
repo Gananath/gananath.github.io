@@ -33,5 +33,6 @@ jobs:
         run: pytest ./src/tests/integration_test.py
       - name: Removing files from testing
         run: |
+            git fetch origin testing:testing
             github checkout testing
             github rm -r *
