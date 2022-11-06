@@ -5,7 +5,7 @@ run-name: Deploying new site 🚀
 on:
   push:
     branches:
-      - newsite-dev
+      - master
 jobs:
   Website-Deployment:
     runs-on: ubuntu-latest
