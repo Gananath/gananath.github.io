@@ -36,7 +36,6 @@ def new_page_creation():
         nav_other = yam["other_menu"]
         nav_sidebar = yam["sidebar"]
         if filename not in html_list:
-            print(filename, " SOO")
             # Opening a base template file for modification
             # This modified base file then becomes the new web page
             logging.info("Loading Template Files for {}".format(filename))
