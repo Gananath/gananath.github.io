@@ -34,6 +34,7 @@ jobs:
             git rm -r .
             git commit -m "deleting all files in testing"
             git checkout newsite-dev
+            git push
       - name: Run Unit Tests
         run: pytest ./src/tests/unit_test.py
       - name: Build and generate webpages
