@@ -25,17 +25,17 @@ jobs:
             pip install beautifulsoup4==4.11.0
             pip install pytest==7.0.1
             pip install PyYAML==5.4.1
-      - name: Deleting all files in testing branche
-        run: |
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
-            git fetch
-            git checkout testing
-            git clean -d -x -n
-            git rm -r .
-            git commit -m "deleting all files in testing"
-            git push
-            git checkout newsite-dev
+      #- name: Deleting all files in testing branche
+        #run: |
+            #git config --local user.email "action@github.com"
+            #git config --local user.name "GitHub Action"
+            #git fetch
+            #git checkout testing
+            #git clean -d -x -n
+            #git rm -r .
+            #git commit -m "deleting all files in testing"
+            #git push
+            #git checkout newsite-dev
       - name: Run Unit Tests
         run: pytest ./src/tests/unit_test.py
       - name: Build and generate webpages
