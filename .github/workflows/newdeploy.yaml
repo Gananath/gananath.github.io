@@ -50,14 +50,12 @@ jobs:
             git config --local user.name "GitHub Action"
             git fetch origin testing:testing
             git add *.html
-            git add *.log
-            git stash
             git checkout testing
-            git stash pop
             git add --all
             git commit -m "auto creating webpages"
-      - name: Push commits
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: testing
+            git push
+      #- name: Push commits
+        #uses: ad-m/github-push-action@master
+        #with:
+          #github_token: ${{ secrets.GITHUB_TOKEN }}
+          #branch: testing
