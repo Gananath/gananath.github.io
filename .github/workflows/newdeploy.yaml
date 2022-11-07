@@ -51,7 +51,9 @@ jobs:
             git fetch origin testing:testing
             git add *.html
             git add *.log
+            git stash
             git checkout testing
+            git stash pop
             git add --all
             git commit -m "auto creating webpages"
       - name: Push commits
