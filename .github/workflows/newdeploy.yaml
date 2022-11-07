@@ -27,6 +27,8 @@ jobs:
             pip install PyYAML==5.4.1
       - name: Deleting all files in testing branche
         run: |
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
             git fetch
             git checkout testing
             git rm -r .
