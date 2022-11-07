@@ -38,7 +38,7 @@ jobs:
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
             git fetch origin testing:testing
-            git add *.html
+            git add --all
             git stash
             git checkout testing
             git stash pop
