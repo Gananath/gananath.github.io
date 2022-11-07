@@ -33,8 +33,8 @@ jobs:
             git checkout testing
             git rm -r .
             git commit -m "deleting all files in testing"
-            git checkout newsite-dev
             git push
+            git checkout newsite-dev
       - name: Run Unit Tests
         run: pytest ./src/tests/unit_test.py
       - name: Build and generate webpages
