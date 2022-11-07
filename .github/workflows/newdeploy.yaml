@@ -38,9 +38,10 @@ jobs:
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
             git fetch origin testing:testing
+            git add *.html
             git stash
-            git reset --hard
             git checkout testing
+            git stash pop
             git add --all
             git commit -m "auto creating webpages"
       - name: Push commits
