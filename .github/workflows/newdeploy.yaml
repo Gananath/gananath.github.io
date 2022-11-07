@@ -31,6 +31,7 @@ jobs:
             git config --local user.name "GitHub Action"
             git fetch
             git checkout testing
+            git clean -d -x -n
             git rm -r .
             git commit -m "deleting all files in testing"
             git push
