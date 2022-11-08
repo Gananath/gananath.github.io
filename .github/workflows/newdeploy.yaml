@@ -39,10 +39,10 @@ jobs:
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
             git fetch origin testing:testing
-            git branch -u origin/testing
             git add *.html *.yaml
             git stash
             git checkout -f testing
+            git branch -u origin/testing
             git stash pop
             git add *.html *.yaml
             git commit -m "auto creating webpages"
