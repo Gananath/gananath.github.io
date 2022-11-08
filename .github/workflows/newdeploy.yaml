@@ -35,12 +35,12 @@ jobs:
         run: |
             rm -rf ./src/tests/__pycache__/
             rm -rf ./src/__pycache__/
+            rm -rf ./src/debug.log
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
             git fetch origin testing:testing
             git add *.html
             git stash
-            git clean -fd
             git checkout testing
             git stash pop
             git add --all
