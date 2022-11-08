@@ -38,12 +38,12 @@ jobs:
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
             git fetch origin testing:testing
-            git add *.html *.yaml
+            git add .
             git stash
             git checkout testing
             git stash pop
             git clean -fdx
-            git add *.html *.yaml
+            git add .
             git commit -m "auto creating webpages"
       - name: Push commits
         uses: ad-m/github-push-action@master
