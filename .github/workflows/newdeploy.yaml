@@ -35,18 +35,17 @@ jobs:
         run: |
             rm -rf ./src/tests/__pycache__/
             rm -rf ./src/__pycache__/
-            # rm -rf ./src/debug.log
+            rm -rf ./src/debug.log
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
             git fetch origin testing:testing
             git add --all
             git stash
             git checkout -f testing
-            # git restore --staged debug.log
             git stash pop
-            git add --all
             git clean -fd
-            git commit -a -m "auto creating webpages"
+            git add --all
+            git commit -m "auto creating webpages"
       - name: Push commits
         uses: ad-m/github-push-action@master
         with:
