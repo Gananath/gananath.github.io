@@ -42,7 +42,7 @@ jobs:
             git stash
             git checkout testing
             git stash pop
-            git clean -fd
+            git clean -fdx
             git add *.html *.yaml
             git commit -m "auto creating webpages"
       - name: Push commits
