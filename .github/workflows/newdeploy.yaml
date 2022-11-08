@@ -44,8 +44,8 @@ jobs:
         run: pytest ./src/tests/integration_test.py
       - name: Commit to testing
         run: |
-            rm -rf ./src/tests/__pycache__
-            rm -rf ./src/__pycache__
+            rm -rf ./src/tests/__pycache__/
+            rm -rf ./src/__pycache__/
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
             git fetch origin testing:testing
