@@ -46,7 +46,7 @@ jobs:
             git stash pop
             git add --all
             git clean -fd
-            git commit -m "auto creating webpages"
+            git commit -a -m "auto creating webpages"
       - name: Push commits
         uses: ad-m/github-push-action@master
         with:
