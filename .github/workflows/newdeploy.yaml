@@ -43,7 +43,7 @@ jobs:
             git stash
             git checkout testing
             git stash pop
-            git add --all
+            git add *.html
             git commit -m "auto creating webpages"
       - name: Push commits
         uses: ad-m/github-push-action@master
