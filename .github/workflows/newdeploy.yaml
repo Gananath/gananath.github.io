@@ -43,8 +43,9 @@ jobs:
             git stash
             git checkout -f testing
             git stash pop
-            git clean -fdx
             git add .
+            git rebase --continue
+            git clean -fdx
             git commit -m "auto creating webpages"
       - name: Push commits
         uses: ad-m/github-push-action@master
