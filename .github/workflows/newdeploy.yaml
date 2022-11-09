@@ -40,11 +40,10 @@ jobs:
             git config --local user.name "GitHub Action"
             git fetch origin testing:testing
             git add .
-            git stash
+            git stash -k
             git checkout -f testing
-            git stash pop
+            git stash apply
             git add .
-            git rebase --continue
             git clean -fdx
             git commit -m "auto creating webpages"
       - name: Push commits
