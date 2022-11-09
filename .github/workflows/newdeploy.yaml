@@ -42,7 +42,7 @@ jobs:
             git fetch origin testing:testing
             git add .
             git stash -k
-            git checkout -f testing
+            git checkout testing
             git stash apply
             git add .
             git clean -fdx
