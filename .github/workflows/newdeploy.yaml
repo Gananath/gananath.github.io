@@ -35,7 +35,7 @@ jobs:
         run: |
             rm -rf ./src/tests/__pycache__/
             rm -rf ./src/__pycache__/
-            rm ./src/debug.log
+            rm debug.log
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
             git fetch origin testing:testing
