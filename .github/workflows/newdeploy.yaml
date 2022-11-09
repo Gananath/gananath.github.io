@@ -46,7 +46,7 @@ jobs:
             git add .
             git clean -fdx
             git commit --amend -m "auto creating webpages"
-            git push --set-upstream origin testing
+            git push -f origin testing
       #- name: Push commits
         #uses: ad-m/github-push-action@master
         #with:
