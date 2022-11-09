@@ -31,22 +31,22 @@ jobs:
         run: python ./src/build.py
       - name: Run Integration Tests
         run: pytest ./src/tests/integration_test.py
-      - name: Commit to testing
+      - name: Commit to gh-pages branch
         run: |
             rm -rf ./src/tests/__pycache__/
             rm -rf ./src/__pycache__/
             rm debug.log
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
-            git fetch origin testing:testing
+            git fetch origin gh-pages:gh-pages
             git add .
             git stash -k
-            git checkout testing
+            git checkout gh-pages
             git stash apply
             git add .
             git clean -fdx
             git commit --amend -m "auto creating webpages"
-            git push -f origin testing
+            git push -f origin gh-pages
       #- name: Push commits
         #uses: ad-m/github-push-action@master
         #with:
