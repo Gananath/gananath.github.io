@@ -10,4 +10,4 @@ To run the automation; First add the content yaml page in `articles` folder and 
 
 ## CI/CD with Github Actions
 
-To automate the whole process I have used GitHubs CI/CD tool, github action. I have some unit and integration tests which runs smootly with github actions but for deployment some involvment is required  
+To automate the whole process I have used GitHubs CI/CD tool, github action. It continously build, deploy and tests(unit and integration) this web app using GitHub Actions. 
