@@ -8,11 +8,8 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <!-- Bootstrap CSS -->
 <link href="./css/custom_bootstrap.css" rel="stylesheet"/>
-<title>
-            Squeeznet-nano: Image classifiction of nano materials
-            from SEM and TEM images using squeeznet
-        </title>
-<meta content="Classification of Drug Like molecules using Artificial Neural Network." name="description"/>
+<title>ProteinStatsAI: Predict proteins statistics and properties using neural network.</title>
+<meta content="Predict proteins statistics and properties using neural network." name="description"/>
 <style>
         .custom-btn {
             width: 17em !important;
@@ -96,90 +93,101 @@
 <div class="container">
 <div class="row p-4 alert alert-success">
 <h1 class="display-5">
-                    Squeeznet-nano
-                </h1>
+                    ProteinStatsAI
+</h1>
 <hr/>
 <h5 class="lead">
-                    Image classifiction of nano materials from SEM
-                    and TEM images using squeeznet
-                </h5>
+                    Predict proteins statistics and properties using neural network.
+</h5>
 </div>
 <div class="row">
 <!-- content -->
-<div class="col-sm-9 border text-secondary rounded p-4">
-<p>
-                        This project is my first endevour to image
-                        classification and transfer learning. I
-                        have used <a href="https://arxiv.org/pdf/1602.07360">squeezenet</a>
-                        for this learning with a slight
-                        modifications. The last softmax layer of
-                        squeeznet is removed and additional dense
-                        and droupout layers were added to new
-                        modified architecture. SqueezeNet achieves
-                        AlexNet-level accuracy on ImageNet with 50x
-                        fewer parameters. That is squeezent learns
-                        very fast and resultend model size also
-                        tends to be very small. The original
-                        alexnet and squeeznet is &gt;250 MB and 5
-                        MB respectevily whereas my modified model
-                        is approximately 15MB in size.
-                    </p>
-<p>
-                        Initially I have used RELU as the
-                        activation funcion for all the new layers
-                        except the last layer which I kept as
-                        softmax. Somehow addition of the RELU
-                        activation fuction to the new layers
-                        overwhelmed my neural netowork and it
-                        dosent learned anything and showed an error
-                        in loss as <b>NaN</b>. This error I think
-                        is mainly caused by the range of RELU
-                        output which is [0,+infinity). Then I
-                        changed starting activation function to
-                        TANH whose range is between (-1, 1) and now
-                        it trained without any error.
-                    </p>
-<p>
-<b>Predicting targets</b>
+<div class="col-sm-9 border text-secondary rounded p-4"><p>
+    If you are visiting here for the first time
+    then I would recommend you to my earlier
+    project <a href="https://github.com/Gananath/DrugAI">DrugAI</a>
+    before reading any further. This project
+    used SMILES signature of drug molecules to
+    classify an organic molecule into different
+    drug families.I have reused many functions
+    and codes from this earlier project to this
+    one. The main difference between this
+    project and earlier project is, this is a
+    regression problem whereas the previous one
+    is a classifiction problem.
 </p>
+<p>
+    Similar to my earlier project I have used
+    Bag of words (n-grams) <a href="https://gananath.github.io/drugai.html">[Link]</a>
+    for feature genration and then trained it
+    in a nerual network. Here protein <a href="https://en.wikipedia.org/wiki/FASTA_format">
+    FASTA</a> sequence is used as a feature.
+    The <a href="ftp://ftp.ebi.ac.uk/pub/databases/pombase/FASTA/pep.fa.gz">
+    dataset</a> and its <a href="ftp://ftp.ebi.ac.uk/pub/databases/pombase/FASTA/pep.fa.gz">
+    stats</a> were obtained from <a href="https://www.pombase.org/downloads/protein-datasets">
+    pombase</a>. Because the data were in two
+    different files we have to first prepare,
+    clean and save it in a CSV format before
+    doing any machine learning. For data
+    preparation I have used <kbd>R</kbd>
+    program because its fast and easier to
+    code.
+</p>
+<h1 class="display-6 py-3">
+    Predicting targets
+</h1>
 <ul>
 <li>
 <p>
-                                Nanotubes
-                            </p>
+            Mass
+        </p>
 </li>
 <li>
 <p>
-                                Nanoparticles
-                            </p>
+            pI
+        </p>
 </li>
 <li>
 <p>
-                                None or Random
-                            </p>
+            Charge
+        </p>
+</li>
+<li>
+<p>
+            NumResidues
+        </p>
+</li>
+<li>
+<p>
+            CAI
+        </p>
 </li>
 </ul>
 <p>
-<i>Caution:</i> As this is first time I am
-                        implementing a image classification and
-                        transfer learning; I am not sure about the
-                        accuracy of the "transfered" model. I also
-                        trained the model for very less computation
-                        and with a small dataset because of my lack
-                        of infrastruture. So I will advice you to
-                        take the code and results with a grain of
-                        salt.
-                    </p>
+    A simple multilayer perceptron is used for
+    this study which was createad using keras
+    module in python with a theanos backend.
+    The FASTA sequence were converted to
+    features and target values are normalized
+    before feeding it to the neural network
+    model. The model was trained for 15 epochs
+    with a batch size of 200 for one cross
+    validation (recommend to use 10). After
+    training the project, it outputted a net
+    validation loss of <b>0.0173422084428</b>
+    and last validation loss of
+    <b>0.0079427516942</b>.
+</p>
 <p>
-                        Project Github Page: <a href="https://github.com/Gananath/squeeznet-nano">
-                        https://github.com/Gananath/squeeznet-nano</a>
+    Project Github Page: <a href="https://github.com/Gananath/ProteinStatsAI">
+    https://github.com/Gananath/ProteinStatsAI</a>
 </p>
 <center>
-<img alt="neural_network" src="images/squeezenet-model.png" style="width:150px;height:300px;"/>
+<img alt="neural_network" src="images/proteinmodel.png" style="width:150px;height:300px;"/>
 </center><br/>
 </div><!-- Sidebar -->
 <div class="col-sm-3 bg-light">
-<a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="index.html" role="button">Home</a> <a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="drugai.html" role="button">DrugAI</a> <a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="prob_retrieval.html" role="button">Probabilistic Memory Retrieval</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="proteinstatai.html" role="button">ProteinStatsAI</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="nerd.html" role="button">NERD</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="multi_task.html" role="button">BrainGAN</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="cv.html" role="button">CV</a> <a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="https://github.com/Gananath" role="button">Contact</a>
+<a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="index.html" role="button">Home</a> <a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="drugai.html" role="button">DrugAI</a> <a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="prob_retrieval.html" role="button">Probabilistic Memory Retrieval</a><a class="btn btn-outline-primary text-secondary btn-block custom-btn mt-1" href="proteinstatai.html" role="button">ProteinStatsAI</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="nerd.html" role="button">NERD</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="multi_task.html" role="button">BrainGAN</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="cv.html" role="button">CV</a> <a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="https://github.com/Gananath" role="button">Contact</a>
 </div>
 </div>
 </div><!-- Footer -->

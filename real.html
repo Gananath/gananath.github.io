@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta content="HTML Tidy for HTML5 for Linux version 5.2.0" name="generator"/>
+<!-- Required meta tags -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- Bootstrap CSS -->
+<link href="./css/custom_bootstrap.css" rel="stylesheet"/>
+<title>Real: Real number generation using neural network classification.</title>
+<meta content="Real number generation using neural network classification." name="description"/>
+<style>
+        .custom-btn {
+            width: 17em !important;
+        }
+        .nav-link:visited,
+            .nav-link:link {
+              border-bottom: 2px solid transparent;
+            }
+
+        .nav-link:hover,
+        .nav-link:active {
+          border-bottom: 2px solid #1bcfc6;
+        }
+        </style>
+</head>
+<body>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="./js/bootstrap.bundle.min.js">
+</script>
+<!-- Header -->
+<div class="container px-2 border-bottom">
+<nav class="navbar navbar-expand-lg navbar-light">
+<a class="navbar-brand btn btn-outline-primary p-2 lead text-secondary" href="#" role="button">Gananath R</a>
+<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+<ul class="navbar-nav ml-auto mb-2 mb-lg-0 lead px-2">
+<li class="nav-item">
+<a aria-current="page" class="nav-link" href="index.html">Home</a>
+</li>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown" href="#" id="navbarDropdown" role="button">
+                Projects
+              </a>
+<ul aria-labelledby="navbarDropdown" class="dropdown-menu">
+<li class="dropstart">
+<a class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" href="drugai.html">DrugAI
+                </a>
+<ul class="dropdown-menu">
+<li><a class="dropdown-item" href="drugai.html">DrugAI</a></li>
+<li><a class="dropdown-item" href="drugai-gen.html">DrugAI-gen</a></li>
+<li><a class="dropdown-item" href="drugai-gan.html">DrugAI-GAN</a></li>
+</ul>
+</li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li><a class="dropdown-item" href="prob_retrieval.html">Probabilistic Memory Retrieval</a><a class="dropdown-item" href="proteinstatai.html">ProteinStatsAI</a><a class="dropdown-item" href="nerd.html">NERD</a><a class="dropdown-item" href="multi_task.html">BrainGAN</a><hr class="dropdown-divider"/></li>
+<li class="dropstart">
+<a class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" href="">Other
+                </a>
+<ul class="dropdown-menu">
+<li><a class="dropdown-item" href="https://gist.github.com/Gananath/5b2f4640fdf96cd87a81a4206a0d3fe8">kaggle</a></li>
+<li><a class="dropdown-item" href="real.html">Real</a></li>
+<li><a class="dropdown-item" href="deepspectra.html">DeepSpectra</a></li>
+<li><a class="dropdown-item" href="testing.html">Test</a></li>
+</ul>
+</li></ul>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="cv.html">CV</a>
+</li>
+<li class="nav-item dropdown">
+<a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdown" role="button">
+                Contacts
+              </a>
+<ul aria-labelledby="navbarDropdown" class="dropdown-menu">
+<li><a class="dropdown-item" href="#" onclick="return confirm('Msg me in github or reddit, preferably both.');">E-Mail</a></li>
+<li><a class="dropdown-item" href="https://github.com/Gananath">GitHub</a></li>
+<li><a class="dropdown-item" href="#">Facebook</a></li>
+<li><a class="dropdown-item" href="#">Twitter</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+</div>
+<!-- body -->
+<div class="container">
+<div class="row p-4 alert alert-success">
+<h1 class="display-5">
+                    Real
+</h1>
+<hr/>
+<h5 class="lead">
+                    Real number generation using neural network classification.
+</h5>
+</div>
+<div class="row">
+<!-- content -->
+<div class="col-sm-9 border text-secondary rounded p-4"><p>
+<b>Note:</b> This is a personal project of
+my own; I believe/assume this is an
+original work and similar work has not been
+carried out by anyone else.
+</p>
+<p>
+It seesm most people want to know what this
+used for; this is a comment I wrote in
+reddit
+</p>
+<p style="background-color:#B6ACAC">
+<i style="color:white">"I try to explain
+with a little example say we need to
+predict Partition coefficient of a chemical
+molecule. A partition coefficient(P) or Log
+P can take any real values both positive or
+negative eg: Acetamide= -1.16. If we want
+to predict such values for a chemical
+molecule in neural network then we have to
+use linear activation function as last
+layer and need to train it in a regression
+way, which may or may not succeed.<br/>
+My idea is to avoid this step and predict
+real numbers as binary classification with
+a certain length. As a proof of my idea I
+made a auto encoder which was able to get a
+fair good but not the best predictions"</i>
+</p>
+<p>
+There are two ways, that I know of, to
+generate real numbers using neural networks
+and those are the regression and seq2seq
+approaches. From experience I can say that
+both regression and recurrent(seq2seq)
+methods are computationally heavy and I
+also assume the transformer(seq2seq)
+technique may also need more computation.
+In this project my goal was to generate
+real numbers using classification only
+approach with a simple neural network. The
+advantages of such method will be fast
+training and quick prediciton of outputs.
+An another novel application for this is
+building a neural network enabled
+calculator for deterministic real number
+operations.
+</p>
+<h2>
+Real to Vectors.
+</h2>
+<p>
+Real number in its real form cannot be used
+for a classification method. We need to
+convert real numbers to a binary vector
+form. First we need to separate real
+numbers into its three corresponding
+<b>Sign</b>, <b>Integers</b> and
+<b>Decimal/Placeholder</b> parts. An
+example for such breakup can be seen in the
+below image.
+</p>
+<center>
+<img alt="real_example" src="images/real_example.jpg" style="width:288px;height:235px;"/>
+</center><br/>
+The sign determining value $k$ can be found
+by<br/>
+<br/>
+<center>
+$k = argmax(softmax(\mathbb{R}^{2}))$
+</center><br/>
+For integers we need to first find the matching
+vector $\mathbf{i}$. The vector can then be
+transformed to a scalar $i$ by taking dot
+product with vector having list of values which
+are powers of 10. Here $d$ is the maximum
+integer length.<br/>
+<br/>
+<center>
+$\mathbf{i} =
+argmax_{row}(softmax_{row}(\mathbb{R}^{d
+\times10}))$
+</center><br/>
+<center>
+$i = \mathbf{i} \cdot [10^{d..0} ]$
+</center><br/>
+The decimal's placeholder value $p$ which
+determines where the decimal should be placed
+in the integers can be obtained by<br/>
+<br/>
+<center>
+$p = argmax(softmax(\mathbb{R}^{d}))$
+</center><br/>
+In the end real numbers can be calculated using
+the formula.<br/>
+<br/>
+<center>
+$\mathbb{R}= \left \{ (-1)^{k}\times i
+\times10^{-p} \right \}$
+</center><br/>
+<small><i>Note: I am mediocre in mathematics,
+kindly forgive any errors</i></small>
+<h2>
+Neural Network.
+</h2>
+<p>
+A linear neural network was used for this
+project but any other varieties of neural
+network will also work. Because my primary
+aim was to validate my idea I had used a
+autoencoder model to generate real numbers.
+The autoencoder model has three input heads
+and three output heads.
+</p>
+<ul>
+<li>
+<p>
+        Input Heads: Sign, Integers,
+        Decimal
+    </p>
+</li>
+<li>
+<p>
+        Output Heads: Sign, Integers,
+        Decimal
+    </p>
+</li>
+</ul>The loss function used was a binary
+crossentropy loss for the three output heads
+plus a custom <b>difference loss</b> function.
+The difference loss function finds the
+difference between our target and output
+integers. This loss function in its current
+form is a non differentiable since it have
+argmax's in its computation. I was planning to
+make differentiable version of this loss
+function with softargmax but was not able to
+find a good implementation for the same in
+pytorch.
+<h2>
+Result
+</h2>
+<p>
+<br/>
+Real: [29.462 10.119 16. 54.483 81.462 77.
+5.2 64.73 17.3 17.25 ]<br/>
+Pred: [52.462, 52.119, 16.0, 92.483,
+52.462, 77.0, 5.2, 64.73, 17.3, 17.25]<br/>
+Loss: 0.7908857719954486<br/>
+<br/>
+Real: [77.97 48.1 51.95 25.358 71.813 21.05
+92.2 84.6 61.4 51.272]<br/>
+Pred: [77.97, 48.1, 51.95,
+49.358000000000004, 46.813, 21.05, 92.2,
+84.60000000000001, 61.400000000000006,
+29.272000000000002]<br/>
+Loss: 0.27221214151122436<br/>
+<br/>
+Real: [49.9 62.75 51.209 2.33 0.2 45.3
+24.188 7.83 23.14 75.9 ]<br/>
+Pred: [49.900000000000006, 62.75, 17.209,
+2.33, 0.2, 45.300000000000004, 25.188,
+7.83, 23.14, 75.9]<br/>
+Loss: 0.35590826826738353<br/>
+<br/>
+The outputs are very encouraging and neural
+network was able to predict majoririty of
+real numbers correctly. Loss function
+corresponding to Sign and Decimal output
+heads were optimized properly. But In my
+option the stochasticity of generated real
+numbers was due to the sub optimal loss
+functions used for integers head. A much
+more improved integer head loss function
+might increase the accuracy of prediction.
+Overfitting the model also helped to attain
+good predicitons, adding dropouts
+significantly affected the output results.
+</p>
+<p>
+Project Github Page:
+<a href="https://github.com/Gananath/Real">https://github.com/Gananath/Real
+</a>
+</p><br/>
+<h2>
+Future Plans.
+</h2>
+<ul>
+<li>
+<p>
+        Improving the accuracy of
+        prediction.
+    </p>
+</li>
+<li>
+<p>
+        Building a neural network
+        calculator with this idea.
+    </p>
+</li>
+<li>
+<p>
+        Posible application includes all
+        the works which needs real numbers
+        eg, velocity prediction, drug
+        likeness prediciton etc.
+    </p>
+</li>
+</ul>
+</div><!-- Sidebar -->
+<div class="col-sm-3 bg-light">
+<a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="index.html" role="button">Home</a> <a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="drugai.html" role="button">DrugAI</a> <a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="prob_retrieval.html" role="button">Probabilistic Memory Retrieval</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="proteinstatai.html" role="button">ProteinStatsAI</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="nerd.html" role="button">NERD</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="multi_task.html" role="button">BrainGAN</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="cv.html" role="button">CV</a> <a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="https://github.com/Gananath" role="button">Contact</a>
+</div>
+</div>
+</div><!-- Footer -->
+<div class="container mt-4 border-top bg-primary rounded-bottom">
+<footer class="py-3 my-4">
+<ul class="nav justify-content-center border-bottom pb-3 mb-3">
+<li class="nav-item">
+<a class="nav-link px-2 text-light" href="#"></a>
+</li>
+</ul>
+<p class="text-center text-light lead">
+                    © 2022 Made by Me
+                </p>
+</footer>
+</div>
+</body>
+</html>
