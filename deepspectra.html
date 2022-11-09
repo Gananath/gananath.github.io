@@ -8,11 +8,8 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <!-- Bootstrap CSS -->
 <link href="./css/custom_bootstrap.css" rel="stylesheet"/>
-<title>
-            Squeeznet-nano: Image classifiction of nano materials
-            from SEM and TEM images using squeeznet
-        </title>
-<meta content="Classification of Drug Like molecules using Artificial Neural Network." name="description"/>
+<title>DeepSpectra: Spectral data classification using machine learning.</title>
+<meta content="Spectral data classification using machine learning." name="description"/>
 <style>
         .custom-btn {
             width: 17em !important;
@@ -95,87 +92,40 @@
 <div class="container">
 <div class="row p-4 alert alert-success">
 <h1 class="display-5">
-                    Squeeznet-nano
-                </h1>
+                    DeepSpectra
+</h1>
 <hr/>
 <h5 class="lead">
-                    Image classifiction of nano materials from SEM
-                    and TEM images using squeeznet
-                </h5>
+                    Spectral data classification using machine learning.
+</h5>
 </div>
 <div class="row">
 <!-- content -->
-<div class="col-sm-9 border text-secondary rounded p-4">
-<p>
-                        This project is my first endevour to image
-                        classification and transfer learning. I
-                        have used <a href="https://arxiv.org/pdf/1602.07360">squeezenet</a>
-                        for this learning with a slight
-                        modifications. The last softmax layer of
-                        squeeznet is removed and additional dense
-                        and droupout layers were added to new
-                        modified architecture. SqueezeNet achieves
-                        AlexNet-level accuracy on ImageNet with 50x
-                        fewer parameters. That is squeezent learns
-                        very fast and resultend model size also
-                        tends to be very small. The original
-                        alexnet and squeeznet is &gt;250 MB and 5
-                        MB respectevily whereas my modified model
-                        is approximately 15MB in size.
-                    </p>
-<p>
-                        Initially I have used RELU as the
-                        activation funcion for all the new layers
-                        except the last layer which I kept as
-                        softmax. Somehow addition of the RELU
-                        activation fuction to the new layers
-                        overwhelmed my neural netowork and it
-                        dosent learned anything and showed an error
-                        in loss as <b>NaN</b>. This error I think
-                        is mainly caused by the range of RELU
-                        output which is [0,+infinity). Then I
-                        changed starting activation function to
-                        TANH whose range is between (-1, 1) and now
-                        it trained without any error.
-                    </p>
-<p>
-<b>Predicting targets</b>
+<div class="col-sm-9 border text-secondary rounded p-4"><p>
+<kbd>Warning: This experiment is not a complete project. Because of
+    lack of data both training and validation accuracy is less.</kbd>
 </p>
-<ul>
-<li>
+<h3>Introduction</h3>
 <p>
-                                Nanotubes
-                            </p>
-</li>
-<li>
-<p>
-                                Nanoparticles
-                            </p>
-</li>
-<li>
-<p>
-                                None or Random
-                            </p>
-</li>
-</ul>
-<p>
-<i>Caution:</i> As this is first time I am
-                        implementing a image classification and
-                        transfer learning; I am not sure about the
-                        accuracy of the "transfered" model. I also
-                        trained the model for very less computation
-                        and with a small dataset because of my lack
-                        of infrastruture. So I will advice you to
-                        take the code and results with a grain of
-                        salt.
-                    </p>
-<p>
-                        Project Github Page: <a href="https://github.com/Gananath/squeeznet-nano">
-                        https://github.com/Gananath/squeeznet-nano</a>
+    I used to work with scientific spectral data and thought of applying
+    machine learning in these data. In this project I have taken powder xrd
+     spectral data to classify it into seven crystal systems. The powder
+     xrd spectrum has two main sequence a 2theta angle in x axis and
+     intensity in y axis. I converted this sequence data into a tensor data
+      to pass it as an image format in a convolution model. This
+      classification is similar to other CNN image classification except
+      instead of passing colour channels as depth here we are passing
+      feature vectors. Number of matrix in the created tensor represents
+      the number of features of the sequence. The possible application is
+      classifiction of uv,ir,raman spectra or protein/nucleotide analysis.
+    <img alt="DeepSpectra" class="img-fluid mx-auto d-block" src="https://raw.githubusercontent.com/Gananath/DeepSpectra/master/img.jpg"/>.
+    The idea is to find spatial or temporal features (if any) from the
+    sequence data and then classify it into different classes.
 </p>
-<center>
-<img alt="neural_network" src="images/squeezenet-model.png" style="width:150px;height:300px;"/>
-</center><br/>
+<p>
+<a href="https://github.com/Gananath/DeepSpectra">
+    DeepSpectra Github Repo</a>
+</p>
 </div><!-- Sidebar -->
 <div class="col-sm-3 bg-light">
 <a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="index.html" role="button">Home</a> <a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="drugai.html" role="button">DrugAI</a> <a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="prob_retrieval.html" role="button">Probabilistic Memory Retrieval</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="proteinstatai.html" role="button">ProteinStatsAI</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="nerd.html" role="button">NERD</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="multi_task.html" role="button">BrainGAN</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="cv.html" role="button">CV</a> <a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="https://github.com/Gananath" role="button">Contact</a>
