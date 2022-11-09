@@ -42,12 +42,12 @@ jobs:
             git fetch origin testing:testing
             git add .
             git stash -k
-            git pull -r
             git checkout testing
             git stash apply
             git add .
             git clean -fdx
             git commit --amend -m "auto creating webpages"
+            git pull -r
       - name: Push commits
         uses: ad-m/github-push-action@master
         with:
