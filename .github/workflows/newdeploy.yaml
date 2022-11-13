@@ -42,7 +42,7 @@ jobs:
             git add .
             git stash -k
             git checkout gh-pages
-            git stash apply
+            git stash apply --index
             git add .
             git clean -fdx
             git commit --amend -m "auto creating webpages"
