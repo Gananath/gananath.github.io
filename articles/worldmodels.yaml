@@ -4,21 +4,17 @@ other_menu: false
 project_menu: true
 sidebar: true
 title: WorldModels
-desc: Demo of Jepa based worldmodels
+desc: Demo of JEPA-based world models
 content: |
   <style>
-
     html,
     body {
       margin: 0;
       padding: 0;
-
       width: 100%;
       min-height: 100%;
-
       background: #111;
       color: white;
-
       font-family: Arial, sans-serif;
     }
 
@@ -29,54 +25,38 @@ content: |
 
     #status {
       margin-bottom: 10px;
-
       padding: 10px;
-
       background: #222;
-
       border: 1px solid #444;
       border-radius: 6px;
-
       color: #aaa;
-
       font-family: monospace;
-
       white-space: pre-wrap;
     }
 
     #game {
       position: relative;
-
       width: 600px;
       height: 600px;
-
       background: black;
     }
 
     canvas {
       display: block;
-
       width: 600px;
       height: 600px;
-
       background: black;
     }
 
     #overlay {
       position: absolute;
-
       left: 0;
       top: 0;
-
       width: 600px;
       height: 155px;
-
       box-sizing: border-box;
-
       padding: 10px 15px;
-
       background: rgba(0, 0, 0, 0.75);
-
       pointer-events: none;
     }
 
@@ -88,52 +68,35 @@ content: |
 
     #action {
       font-size: 24px;
-
       color: rgb(100, 255, 100);
-
       margin-bottom: 10px;
     }
 
     #help {
       font-size: 18px;
-
       line-height: 28px;
-
       color: white;
     }
 
     #help2 {
       font-size: 18px;
-
       color: rgb(255, 220, 100);
     }
 
     #log {
       margin-top: 10px;
-
       height: 150px;
-
       overflow-y: auto;
-
       padding: 10px;
-
       box-sizing: border-box;
-
       background: #000;
-
       border: 1px solid #333;
-
       color: #aaa;
-
       font-family: monospace;
-
       font-size: 12px;
-
       white-space: pre-wrap;
     }
-
   </style>
-
 
   <!-- ============================================================
        APPLICATION
@@ -187,22 +150,18 @@ content: |
 
   </div>
 
-
   <!-- ============================================================
        ONNX RUNTIME
        ============================================================ -->
 
   <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.24.3/dist/ort.min.js"></script>
 
-
   <!-- ============================================================
        APPLICATION SCRIPT
        ============================================================ -->
 
   <script>
-
     "use strict";
-
 
     // ============================================================
     // CONFIG
@@ -212,7 +171,6 @@ content: |
     const SCREEN_HEIGHT = 600;
     const FPS = 60;
 
-
     // ============================================================
     // GITHUB REPOSITORY
     // ============================================================
@@ -220,18 +178,14 @@ content: |
     const REPO_BASE_URL =
       "https://raw.githubusercontent.com/Gananath/worldmodels_demo/main";
 
-
     const DYNAMICS_MODEL_URL =
       `${REPO_BASE_URL}/models/model.onnx`;
-
 
     const DECODER_MODEL_URL =
       `${REPO_BASE_URL}/models/decoder.onnx`;
 
-
     const INITIAL_STATE_URL =
       `${REPO_BASE_URL}/models/initial_state.json`;
-
 
     // ============================================================
     // ONNX RUNTIME
@@ -240,7 +194,6 @@ content: |
     ort.env.wasm.wasmPaths =
       "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.24.3/dist/";
 
-
     // ============================================================
     // DOM
     // ============================================================
@@ -248,18 +201,14 @@ content: |
     const canvas =
       document.getElementById("canvas");
 
-
     const ctx =
       canvas.getContext("2d");
-
 
     const statusElement =
       document.getElementById("status");
 
-
     const logElement =
       document.getElementById("log");
-
 
     // ============================================================
     // GLOBAL STATE
@@ -272,7 +221,6 @@ content: |
     let step = 0;
     let inferenceRunning = false;
 
-
     let action =
       new Float32Array([
         0,
@@ -280,64 +228,43 @@ content: |
         0
       ]);
 
-
     const keys =
       new Set();
-
 
     // ============================================================
     // LOGGING
     // ============================================================
 
     function log(...args) {
-
       console.log(...args);
 
       logElement.textContent +=
-
         args
           .map(value => {
-
-            if (
-              typeof value === "object"
-            ) {
-
+            if (typeof value === "object") {
               try {
-
                 return JSON.stringify(value);
-
-              }
-              catch {
-
+              } catch {
                 return String(value);
-
               }
-
             }
 
             return String(value);
-
           })
           .join(" ") + "\n";
 
-
       logElement.scrollTop =
         logElement.scrollHeight;
-
     }
-
 
     // ============================================================
     // STATUS
     // ============================================================
 
     function setStatus(text) {
-
       statusElement.textContent =
         text;
-
     }
-
 
     // ============================================================
     // FETCH FILE
@@ -347,17 +274,14 @@ content: |
       url,
       name
     ) {
-
       log(
         `Downloading ${name}:`,
         url
       );
 
-
       setStatus(
         `Downloading ${name}...`
       );
-
 
       const response =
         await fetch(
@@ -367,32 +291,22 @@ content: |
           }
         );
 
-
       if (!response.ok) {
-
         throw new Error(
           `${name} download failed: ` +
           `${response.status} ${response.statusText}\n` +
           url
         );
-
       }
-
 
       const buffer =
         await response.arrayBuffer();
 
-
-      if (
-        buffer.byteLength === 0
-      ) {
-
+      if (buffer.byteLength === 0) {
         throw new Error(
           `${name} is empty`
         );
-
       }
-
 
       log(
         `${name} downloaded:`,
@@ -400,11 +314,8 @@ content: |
         "bytes"
       );
 
-
       return buffer;
-
     }
-
 
     // ============================================================
     // LOAD ONNX
@@ -414,18 +325,15 @@ content: |
       url,
       name
     ) {
-
       const buffer =
         await fetchFile(
           url,
           name
         );
 
-
       log(
         `Creating ONNX session for ${name}...`
       );
-
 
       const session =
         await ort.InferenceSession.create(
@@ -437,44 +345,35 @@ content: |
           }
         );
 
-
       log(
         `${name} loaded`
       );
-
 
       log(
         `${name} inputs:`,
         session.inputNames
       );
 
-
       log(
         `${name} outputs:`,
         session.outputNames
       );
 
-
       return session;
-
     }
-
 
     // ============================================================
     // LOAD INITIAL STATE
     // ============================================================
 
     async function loadInitialState() {
-
       log(
         "Downloading initial_state.json..."
       );
 
-
       setStatus(
         "Downloading initial_state.json..."
       );
-
 
       const response =
         await fetch(
@@ -484,65 +383,47 @@ content: |
           }
         );
 
-
       if (!response.ok) {
-
         throw new Error(
           `Initial state download failed: ` +
           `${response.status} ${response.statusText}`
         );
-
       }
-
 
       const json =
         await response.json();
 
-
-      if (
-        !json.latent
-      ) {
-
+      if (!json.latent) {
         throw new Error(
           "initial_state.json does not contain 'latent'"
         );
-
       }
-
 
       const source =
         json.latent;
-
 
       if (
         !Array.isArray(source) ||
         source.length === 0
       ) {
-
         throw new Error(
           "Invalid latent data"
         );
-
       }
-
 
       const channels =
         source.length;
 
-
       const height =
         source[0].length;
 
-
       const width =
         source[0][0].length;
-
 
       log(
         "Initial latent dimensions:",
         [1, channels, height, width]
       );
-
 
       const values =
         new Float32Array(
@@ -551,80 +432,60 @@ content: |
           width
         );
 
-
       let index = 0;
-
 
       for (
         let c = 0;
         c < channels;
         c++
       ) {
-
         for (
           let y = 0;
           y < height;
           y++
         ) {
-
           for (
             let x = 0;
             x < width;
             x++
           ) {
-
             const value =
               Number(
                 source[c][y][x]
               );
 
-
             if (
               !Number.isFinite(value)
             ) {
-
               throw new Error(
                 `Invalid latent value at ` +
                 `[${c}][${y}][${x}]`
               );
-
             }
-
 
             values[index++] =
               value;
-
           }
-
         }
-
       }
 
-
       return {
-
         data: values,
-
         dims: [
           1,
           channels,
           height,
           width
         ]
-
       };
-
     }
-
 
     // ============================================================
     // COPY LATENT
     // ============================================================
 
     function copyLatent(value) {
-
       return {
-
         data:
           new Float32Array(
             value.data
@@ -632,147 +493,110 @@ content: |
 
         dims:
           [...value.dims]
-
       };
-
     }
-
 
     // ============================================================
     // LATENT TENSOR
     // ============================================================
 
     function createLatentTensor(value) {
-
       return new ort.Tensor(
         "float32",
         value.data,
         value.dims
       );
-
     }
-
 
     // ============================================================
     // ACTION TENSOR
     // ============================================================
 
     function createActionTensor() {
-
       return new ort.Tensor(
-
         "float32",
-
         new Float32Array([
           action[0],
           action[1],
           action[2]
         ]),
-
         [1, 3]
-
       );
-
     }
-
 
     // ============================================================
     // DECODE
     // ============================================================
 
     async function decode(value) {
-
       if (!decoder) {
         return;
       }
-
 
       log(
         "Decoding latent..."
       );
 
-
       const inputName =
         decoder.inputNames[0];
 
-
       const outputs =
         await decoder.run({
-
           [inputName]:
             createLatentTensor(
               value
             )
-
         });
-
 
       const outputName =
         decoder.outputNames[0];
 
-
       const tensor =
         outputs[outputName];
 
-
       if (!tensor) {
-
         throw new Error(
           "Decoder produced no output"
         );
-
       }
-
 
       const dims =
         Array.from(
           tensor.dims
         );
 
-
       log(
         "Decoder output shape:",
         dims
       );
 
-
       if (
         dims.length !== 4
       ) {
-
         throw new Error(
           `Expected decoder output [N,C,H,W], got ${dims}`
         );
-
       }
-
 
       const channels =
         dims[1];
 
-
       const height =
         dims[2];
-
 
       const width =
         dims[3];
 
-
       if (
         channels !== 3
       ) {
-
         throw new Error(
           `Expected 3 RGB channels, got ${channels}`
         );
-
       }
-
 
       const data =
         tensor.data;
-
 
       const imageData =
         new ImageData(
@@ -780,60 +604,48 @@ content: |
           height
         );
 
-
       const rgba =
         imageData.data;
-
 
       const channelSize =
         width *
         height;
-
 
       for (
         let y = 0;
         y < height;
         y++
       ) {
-
         for (
           let x = 0;
           x < width;
           x++
         ) {
-
           const p =
             y * width + x;
 
-
           let r =
             data[p];
-
 
           let g =
             data[
               channelSize + p
             ];
 
-
           let b =
             data[
               2 * channelSize + p
             ];
-
 
           if (
             !Number.isFinite(r) ||
             !Number.isFinite(g) ||
             !Number.isFinite(b)
           ) {
-
             throw new Error(
               "Decoder output contains NaN/INF"
             );
-
           }
-
 
           r =
             Math.max(
@@ -844,7 +656,6 @@ content: |
               )
             );
 
-
           g =
             Math.max(
               0,
@@ -853,7 +664,6 @@ content: |
                 g / 2 + 0.5
               )
             );
-
 
           b =
             Math.max(
@@ -864,63 +674,50 @@ content: |
               )
             );
 
-
           const offset =
             p * 4;
-
 
           rgba[offset] =
             Math.round(
               r * 255
             );
 
-
           rgba[offset + 1] =
             Math.round(
               g * 255
             );
-
 
           rgba[offset + 2] =
             Math.round(
               b * 255
             );
 
-
           rgba[offset + 3] =
             255;
-
         }
-
       }
-
 
       const imageCanvas =
         document.createElement(
           "canvas"
         );
 
-
       imageCanvas.width =
         width;
 
-
       imageCanvas.height =
         height;
-
 
       const imageCtx =
         imageCanvas.getContext(
           "2d"
         );
 
-
       imageCtx.putImageData(
         imageData,
         0,
         0
       );
-
 
       ctx.clearRect(
         0,
@@ -929,10 +726,8 @@ content: |
         SCREEN_HEIGHT
       );
 
-
       ctx.imageSmoothingEnabled =
         false;
-
 
       ctx.drawImage(
         imageCanvas,
@@ -942,35 +737,27 @@ content: |
         SCREEN_HEIGHT
       );
 
-
       log(
         "Decode complete."
       );
-
     }
-
 
     // ============================================================
     // AUTOMATIC INITIALIZATION
     // ============================================================
 
     async function initialize() {
-
       if (
         typeof ort === "undefined"
       ) {
-
         setStatus(
           "ERROR: ONNX Runtime Web did not load."
         );
 
         return;
-
       }
 
-
       try {
-
         log(
           "================================"
         );
@@ -983,11 +770,9 @@ content: |
           "================================"
         );
 
-
         setStatus(
           "Loading dynamics model..."
         );
-
 
         model =
           await loadONNXFromURL(
@@ -995,11 +780,9 @@ content: |
             "Dynamics model"
           );
 
-
         setStatus(
           "Loading decoder..."
         );
-
 
         decoder =
           await loadONNXFromURL(
@@ -1007,16 +790,13 @@ content: |
             "Decoder model"
           );
 
-
         initialState =
           await loadInitialState();
-
 
         latent =
           copyLatent(
             initialState
           );
-
 
         action =
           new Float32Array([
@@ -1025,23 +805,18 @@ content: |
             0
           ]);
 
-
         step = 0;
-
 
         setStatus(
           "Models loaded.\n" +
           "Decoding initial state..."
         );
 
-
         await decode(
           latent
         );
 
-
         updateUI();
-
 
         setStatus(
           "READY\n\n" +
@@ -1054,7 +829,6 @@ content: |
           "R = reset"
         );
 
-
         log(
           "================================"
         );
@@ -1066,136 +840,98 @@ content: |
         log(
           "================================"
         );
-
       }
       catch (error) {
-
         console.error(
           "STARTUP ERROR:",
           error
         );
 
-
         log(
           "STARTUP ERROR:",
           error
         );
-
 
         setStatus(
           "STARTUP ERROR:\n\n" +
           error.message
         );
 
-
         model = null;
         decoder = null;
         initialState = null;
         latent = null;
-
       }
-
     }
-
 
     // ============================================================
     // UPDATE ACTION
     // ============================================================
 
     function updateAction() {
-
       if (
         keys.has("ArrowLeft")
       ) {
-
         action[0] = -1;
-
       }
       else if (
         keys.has("ArrowRight")
       ) {
-
         action[0] = 1;
-
       }
       else {
-
         action[0] = 0;
-
       }
-
 
       if (
         keys.has("ArrowUp")
       ) {
-
         action[1] = 1;
-
       }
       else {
-
         action[1] = 0;
-
       }
-
 
       if (
         keys.has("ArrowDown")
       ) {
-
         action[2] = 1;
-
       }
       else {
-
         action[2] = 0;
-
       }
 
-
       updateUI();
-
     }
-
 
     // ============================================================
     // ADVANCE MODEL
     // ============================================================
 
     async function advance() {
-
       if (
         !model ||
         !decoder ||
         !latent
       ) {
-
         log(
           "Models are not loaded."
         );
 
         return;
-
       }
-
 
       if (
         inferenceRunning
       ) {
-
         return;
-
       }
-
 
       inferenceRunning =
         true;
 
-
       try {
-
         step++;
-
 
         log(
           "",
@@ -1203,100 +939,76 @@ content: |
           `ACTION [${action[0]}, ${action[1]}, ${action[2]}]`
         );
 
-
         const stateTensor =
           createLatentTensor(
             latent
           );
 
-
         const actionTensor =
           createActionTensor();
 
-
         const outputs =
           await model.run({
-
             state:
               stateTensor,
 
             actions:
               actionTensor
-
           });
-
 
         const outputName =
           model.outputNames[0];
 
-
         const nextTensor =
           outputs[outputName];
 
-
         if (!nextTensor) {
-
           throw new Error(
             "Dynamics model produced no output"
           );
-
         }
-
 
         const nextData =
           nextTensor.data;
-
 
         for (
           let i = 0;
           i < nextData.length;
           i++
         ) {
-
           if (
             !Number.isFinite(
               nextData[i]
             )
           ) {
-
             throw new Error(
               "Dynamics output contains NaN/INF"
             );
-
           }
-
         }
-
 
         let min =
           Infinity;
 
-
         let max =
           -Infinity;
-
 
         let sum =
           0;
 
-
         let change =
           0;
 
-
         const oldData =
           latent.data;
-
 
         for (
           let i = 0;
           i < nextData.length;
           i++
         ) {
-
           const value =
             nextData[i];
-
 
           min =
             Math.min(
@@ -1304,46 +1016,36 @@ content: |
               value
             );
 
-
           max =
             Math.max(
               max,
               value
             );
 
-
           sum +=
             value;
-
 
           if (
             i < oldData.length
           ) {
-
             change +=
               Math.abs(
                 value -
                 oldData[i]
               );
-
           }
-
         }
-
 
         const mean =
           sum /
           nextData.length;
 
-
         change /=
           nextData.length;
-
 
         log(
           `LATENT: ${JSON.stringify(nextTensor.dims)}`
         );
-
 
         log(
           `min=${min.toFixed(4)} ` +
@@ -1352,9 +1054,7 @@ content: |
           `change=${change.toFixed(6)}`
         );
 
-
         latent = {
-
           data:
             new Float32Array(
               nextData
@@ -1364,117 +1064,86 @@ content: |
             Array.from(
               nextTensor.dims
             )
-
         };
-
 
         await decode(
           latent
         );
 
-
         updateUI();
-
       }
       catch (error) {
-
         console.error(
           "INFERENCE ERROR:",
           error
         );
 
-
         log(
           "INFERENCE ERROR:",
           error.message
         );
-
       }
       finally {
-
         inferenceRunning =
           false;
-
       }
-
     }
-
 
     // ============================================================
     // RESET
     // ============================================================
 
     async function reset() {
-
       if (
         !initialState
       ) {
-
         return;
-
       }
-
 
       latent =
         copyLatent(
           initialState
         );
 
-
       action[0] = 0;
       action[1] = 0;
       action[2] = 0;
 
-
       step = 0;
-
 
       await decode(
         latent
       );
 
-
       updateUI();
-
 
       log(
         "RESET"
       );
-
     }
-
 
     // ============================================================
     // UI
     // ============================================================
 
     function updateUI() {
-
       document.getElementById(
         "step"
       ).textContent =
         `STEP: ${step}`;
 
-
       document.getElementById(
         "action"
       ).textContent =
-
         `ACTION: [` +
-
         `${action[0] >= 0 ? "+" : ""}` +
         `${action[0].toFixed(1)}, ` +
-
         `${action[1] >= 0 ? "+" : ""}` +
         `${action[1].toFixed(1)}, ` +
-
         `${action[2] >= 0 ? "+" : ""}` +
         `${action[2].toFixed(1)}` +
-
         `]`;
-
     }
-
 
     // ============================================================
     // KEYBOARD DOWN
@@ -1483,11 +1152,9 @@ content: |
     window.addEventListener(
       "keydown",
       async event => {
-
         keys.add(
           event.code
         );
-
 
         if (
           event.code === "ArrowLeft" ||
@@ -1496,35 +1163,25 @@ content: |
           event.code === "ArrowDown" ||
           event.code === "Space"
         ) {
-
           event.preventDefault();
-
         }
-
 
         if (
           event.code === "Enter" ||
           event.code === "Space"
         ) {
-
           await advance();
-
         }
-
 
         if (
           event.code === "KeyR"
         ) {
-
           await reset();
-
         }
-
 
         if (
           event.code === "KeyC"
         ) {
-
           keys.delete(
             "ArrowLeft"
           );
@@ -1541,19 +1198,14 @@ content: |
             "ArrowDown"
           );
 
-
           action[0] = 0;
           action[1] = 0;
           action[2] = 0;
 
-
           updateUI();
-
         }
-
       }
     );
-
 
     // ============================================================
     // KEYBOARD UP
@@ -1562,14 +1214,11 @@ content: |
     window.addEventListener(
       "keyup",
       event => {
-
         keys.delete(
           event.code
         );
-
       }
     );
-
 
     // ============================================================
     // 60 FPS LOOP
@@ -1578,47 +1227,35 @@ content: |
     let lastFrame =
       performance.now();
 
-
     async function gameLoop(
       timestamp
     ) {
-
       const elapsed =
         timestamp -
         lastFrame;
-
 
       if (
         elapsed >=
         1000 / FPS
       ) {
-
         lastFrame =
           timestamp;
 
-
         updateAction();
-
 
         if (
           action[0] !== 0 ||
           action[1] !== 0 ||
           action[2] !== 0
         ) {
-
           await advance();
-
         }
-
       }
-
 
       requestAnimationFrame(
         gameLoop
       );
-
     }
-
 
     // ============================================================
     // START AUTOMATICALLY
@@ -1626,12 +1263,8 @@ content: |
 
     initialize()
       .then(() => {
-
         requestAnimationFrame(
           gameLoop
         );
-
       });
-
   </script>
----
