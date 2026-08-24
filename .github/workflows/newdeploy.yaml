@@ -6,50 +6,93 @@ on:
   push:
     branches:
       - master
+
 jobs:
   Website-Deployment:
     runs-on: ubuntu-latest
     name: Build and Push
+
     steps:
-      - name: git-checkout
-        uses: actions/checkout@v3
-      - name: github branch name
-        run: echo running on branch ${GITHUB_REF##*/}
-      - name: python installation
-        uses: actions/setup-python@v4
+      - name: Git checkout
+        uses: actions/checkout@v4
         with:
-          python-version: 3.12
+          fetch-depth: 0
+
+      - name: Show branch name
+        run: echo "Running on branch ${GITHUB_REF##*/}"
+
+      - name: Python installation
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
       - name: Install dependencies
         run: |
-            python -m pip install --upgrade pip
-            pip install beautifulsoup4==4.15.0
-            pip install pytest==9.1.1
-            pip install PyYAML==6.0.3
+          python -m pip install --upgrade pip
+          pip install beautifulsoup4==4.15.0
+          pip install pytest==9.1.1
+          pip install PyYAML==6.0.3
+
       - name: Run Unit Tests
-        run: pytest ./src/tests/unit_test.py
+        run: |
+          pytest ./src/tests/unit_test.py
+
       - name: Build and generate webpages
-        run: python ./src/build.py
+        run: |
+          python ./src/build.py
+
       - name: Run Integration Tests
-        run: pytest ./src/tests/integration_test.py
+        run: |
+          pytest ./src/tests/integration_test.py
+
       - name: Commit to gh-pages branch
         run: |
-            rm -rf ./src/tests/__pycache__/
-            rm -rf ./src/__pycache__/
-            rm debug.log
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
-            git fetch origin gh-pages:gh-pages
-            git add .
-            git stash -k
-            git checkout gh-pages
-            git stash apply --index
-            git add .
-            git clean -fdx
-            git commit --amend -m "auto creating webpages"
-            git push -f origin gh-pages
-      #- name: Push commits
-        #uses: ad-m/github-push-action@master
-        #with:
-          #github_token: ${{ secrets.GITHUB_TOKEN }}
-          #branch: ${{ github.ref }}
-          # test
+          # Remove files that should not be deployed
+          rm -rf ./src/tests/__pycache__/
+          rm -rf ./src/__pycache__/
+          rm -f debug.log
+
+          # Configure Git
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+
+          # Save the generated website files
+          mkdir -p /tmp/generated-site
+
+          find . \
+            -maxdepth 1 \
+            -type f \
+            -name "*.html" \
+            -exec cp {} /tmp/generated-site/ \;
+
+          # Fetch gh-pages
+          git fetch origin gh-pages
+
+          # Create a temporary worktree for gh-pages
+          rm -rf /tmp/gh-pages
+
+          git worktree add /tmp/gh-pages gh-pages
+
+          # Copy generated HTML files into gh-pages
+          cp /tmp/generated-site/*.html /tmp/gh-pages/
+
+          # Move into gh-pages worktree
+          cd /tmp/gh-pages
+
+          # Remove unwanted files
+          rm -rf src
+          rm -rf .github
+          rm -rf .gitignore
+
+          # Check what changed
+          git status
+
+          # Commit only if there are changes
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No changes to deploy."
+          else
+            git commit -m "auto creating webpages"
+            git push origin gh-pages
+          fi
