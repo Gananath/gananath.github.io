@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta content="HTML Tidy for HTML5 for Linux version 5.2.0" name="generator"/>
+<!-- Required meta tags -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- Bootstrap CSS -->
+<link href="./css/custom_bootstrap.css" rel="stylesheet"/>
+<title>WorldModels: Demo of Jepa based worldmodels</title>
+<meta content="Demo of Jepa based worldmodels" name="description"/>
+<style>
+        .custom-btn {
+            width: 17em !important;
+        }
+        .nav-link:visited,
+            .nav-link:link {
+              border-bottom: 2px solid transparent;
+            }
+
+        .nav-link:hover,
+        .nav-link:active {
+          border-bottom: 2px solid #1bcfc6;
+        }
+        </style>
+</head>
+<body>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="./js/bootstrap.bundle.min.js">
+</script>
+<!-- Header -->
+<div class="container px-2 border-bottom">
+<nav class="navbar navbar-expand-lg navbar-light">
+<a class="navbar-brand btn btn-outline-primary p-2 lead text-secondary" href="#" role="button">Gananath R</a>
+<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+<ul class="navbar-nav ml-auto mb-2 mb-lg-0 lead px-2">
+<li class="nav-item">
+<a aria-current="page" class="nav-link" href="index.html">Home</a>
+</li>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown" href="#" id="navbarDropdown" role="button">
+                Projects
+              </a>
+<ul aria-labelledby="navbarDropdown" class="dropdown-menu">
+<li class="dropstart">
+<a class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" href="drugai.html">DrugAI
+                </a>
+<ul class="dropdown-menu">
+<li><a class="dropdown-item" href="drugai.html">DrugAI</a></li>
+<li><a class="dropdown-item" href="drugai-gen.html">DrugAI-gen</a></li>
+<li><a class="dropdown-item" href="drugai-gan.html">DrugAI-GAN</a></li>
+</ul>
+</li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li><a class="dropdown-item" href="worldmodels.html">WorldModels</a><a class="dropdown-item" href="nerd.html">NERD</a><a class="dropdown-item" href="prob_retrieval.html">Probabilistic Memory Retrieval</a><a class="dropdown-item" href="multi_task.html">BrainGAN</a><a class="dropdown-item" href="proteinstatai.html">ProteinStatsAI</a><hr class="dropdown-divider"/></li>
+<li class="dropstart">
+<a class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" href="">Other
+                </a>
+<ul class="dropdown-menu">
+<li><a class="dropdown-item" href="https://gist.github.com/Gananath/5b2f4640fdf96cd87a81a4206a0d3fe8">kaggle</a></li>
+<li><a class="dropdown-item" href="deepspectra.html">DeepSpectra</a></li>
+<li><a class="dropdown-item" href="real.html">Real</a></li>
+</ul>
+</li></ul>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="cv.html">CV</a>
+</li>
+<li class="nav-item dropdown">
+<a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdown" role="button">
+                Contacts
+              </a>
+<ul aria-labelledby="navbarDropdown" class="dropdown-menu">
+<li><a class="dropdown-item" href="#" onclick="return confirm('Msg me in github or reddit, preferably both.');">E-Mail</a></li>
+<li><a class="dropdown-item" href="https://github.com/Gananath">GitHub</a></li>
+<li><a class="dropdown-item" href="#">Facebook</a></li>
+<li><a class="dropdown-item" href="#">Twitter</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+</div>
+<!-- body -->
+<div class="container">
+<div class="row p-4 alert alert-success">
+<h1 class="display-5">
+                    WorldModels
+</h1>
+<hr/>
+<h5 class="lead">
+                    Demo of Jepa based worldmodels
+</h5>
+</div>
+<div class="row">
+<!-- content -->
+<div class="col-sm-9 border text-secondary rounded p-4"><style>
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: Arial, sans-serif;
+  }
+
+  #app {
+    width: 600px;
+    margin: 20px auto;
+  }
+
+  #status {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: monospace;
+    white-space: pre-wrap;
+  }
+
+  #game {
+    position: relative;
+    width: 600px;
+    height: 600px;
+  }
+
+  canvas {
+    display: block;
+    width: 600px;
+    height: 600px;
+  }
+
+  #overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 600px;
+    height: 155px;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    background: rgba(0, 0, 0, 0.75);
+    pointer-events: none;
+  }
+
+  #step {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: white;
+  }
+
+  #action {
+    font-size: 24px;
+    color: rgb(100, 255, 100);
+    margin-bottom: 10px;
+  }
+
+  #help {
+    font-size: 18px;
+    line-height: 28px;
+    color: white;
+  }
+
+  #help2 {
+    font-size: 18px;
+    color: rgb(255, 220, 100);
+  }
+
+  #log {
+    margin-top: 10px;
+    height: 150px;
+    overflow-y: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #333;
+    font-family: monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+  }
+</style>
+<div id="app">
+<div id="status">
+    Starting...
+  </div>
+<div id="game">
+<canvas height="600" id="canvas" width="600"></canvas>
+<div id="overlay">
+<div id="step">
+        STEP: 0
+      </div>
+<div id="action">
+        ACTION: [+0.0, +0.0, +0.0]
+      </div>
+<div id="help">
+        LEFT/RIGHT: steer
+          
+        UP: gas
+          
+        DOWN: brake
+      </div>
+<div id="help2">
+        ENTER/SPACE: advance
+          
+        C: zero
+          
+        R: reset
+      </div>
+</div>
+</div>
+<div id="log"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.24.3/dist/ort.min.js"></script>
+<script>
+  "use strict";
+
+  // ============================================================
+  // CONFIG
+  // ============================================================
+
+  const SCREEN_WIDTH = 600;
+  const SCREEN_HEIGHT = 600;
+  const FPS = 60;
+
+  // ============================================================
+  // GITHUB REPOSITORY
+  // ============================================================
+
+  const REPO_BASE_URL =
+    "https://raw.githubusercontent.com/Gananath/worldmodels_demo/main";
+
+  const DYNAMICS_MODEL_URL =
+    `${REPO_BASE_URL}/models/model.onnx`;
+
+  const DECODER_MODEL_URL =
+    `${REPO_BASE_URL}/models/decoder.onnx`;
+
+  const INITIAL_STATE_URL =
+    `${REPO_BASE_URL}/models/initial_state.json`;
+
+  // ============================================================
+  // ONNX RUNTIME
+  // ============================================================
+
+  ort.env.wasm.wasmPaths =
+    "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.24.3/dist/";
+
+  // ============================================================
+  // DOM
+  // ============================================================
+
+  const canvas =
+    document.getElementById("canvas");
+
+  const ctx =
+    canvas.getContext("2d");
+
+  const statusElement =
+    document.getElementById("status");
+
+  const logElement =
+    document.getElementById("log");
+
+  // ============================================================
+  // GLOBAL STATE
+  // ============================================================
+
+  let model = null;
+  let decoder = null;
+  let initialState = null;
+  let latent = null;
+  let step = 0;
+  let inferenceRunning = false;
+
+  let action =
+    new Float32Array([
+      0,
+      0,
+      0
+    ]);
+
+  const keys =
+    new Set();
+
+  // ============================================================
+  // LOGGING
+  // ============================================================
+
+  function log(...args) {
+    console.log(...args);
+
+    logElement.textContent +=
+      args
+        .map(value => {
+          if (
+            typeof value === "object"
+          ) {
+            try {
+              return JSON.stringify(value);
+            }
+            catch {
+              return String(value);
+            }
+          }
+
+          return String(value);
+        })
+        .join(" ") + "\n";
+
+    logElement.scrollTop =
+      logElement.scrollHeight;
+  }
+
+  // ============================================================
+  // STATUS
+  // ============================================================
+
+  function setStatus(text) {
+    statusElement.textContent =
+      text;
+  }
+
+  // ============================================================
+  // FETCH FILE
+  // ============================================================
+
+  async function fetchFile(
+    url,
+    name
+  ) {
+    log(
+      `Downloading ${name}:`,
+      url
+    );
+
+    setStatus(
+      `Downloading ${name}...`
+    );
+
+    const response =
+      await fetch(
+        url,
+        {
+          cache: "no-cache"
+        }
+      );
+
+    if (!response.ok) {
+      throw new Error(
+        `${name} download failed: ` +
+        `${response.status} ${response.statusText}\n` +
+        url
+      );
+    }
+
+    const buffer =
+      await response.arrayBuffer();
+
+    if (
+      buffer.byteLength === 0
+    ) {
+      throw new Error(
+        `${name} is empty`
+      );
+    }
+
+    log(
+      `${name} downloaded:`,
+      buffer.byteLength,
+      "bytes"
+    );
+
+    return buffer;
+  }
+
+  // ============================================================
+  // LOAD ONNX
+  // ============================================================
+
+  async function loadONNXFromURL(
+    url,
+    name
+  ) {
+    const buffer =
+      await fetchFile(
+        url,
+        name
+      );
+
+    log(
+      `Creating ONNX session for ${name}...`
+    );
+
+    const session =
+      await ort.InferenceSession.create(
+        new Uint8Array(buffer),
+        {
+          executionProviders: [
+            "wasm"
+          ]
+        }
+      );
+
+    log(
+      `${name} loaded`
+    );
+
+    log(
+      `${name} inputs:`,
+      session.inputNames
+    );
+
+    log(
+      `${name} outputs:`,
+      session.outputNames
+    );
+
+    return session;
+  }
+
+  // ============================================================
+  // LOAD INITIAL STATE
+  // ============================================================
+
+  async function loadInitialState() {
+    log(
+      "Downloading initial_state.json..."
+    );
+
+    setStatus(
+      "Downloading initial_state.json..."
+    );
+
+    const response =
+      await fetch(
+        INITIAL_STATE_URL,
+        {
+          cache: "no-cache"
+        }
+      );
+
+    if (!response.ok) {
+      throw new Error(
+        `Initial state download failed: ` +
+        `${response.status} ${response.statusText}`
+      );
+    }
+
+    const json =
+      await response.json();
+
+    if (
+      !json.latent
+    ) {
+      throw new Error(
+        "initial_state.json does not contain 'latent'"
+      );
+    }
+
+    const source =
+      json.latent;
+
+    if (
+      !Array.isArray(source) ||
+      source.length === 0
+    ) {
+      throw new Error(
+        "Invalid latent data"
+      );
+    }
+
+    const channels =
+      source.length;
+
+    const height =
+      source[0].length;
+
+    const width =
+      source[0][0].length;
+
+    log(
+      "Initial latent dimensions:",
+      [1, channels, height, width]
+    );
+
+    const values =
+      new Float32Array(
+        channels *
+        height *
+        width
+      );
+
+    let index = 0;
+
+    for (
+      let c = 0;
+      c < channels;
+      c++
+    ) {
+      for (
+        let y = 0;
+        y < height;
+        y++
+      ) {
+        for (
+          let x = 0;
+          x < width;
+          x++
+        ) {
+          const value =
+            Number(
+              source[c][y][x]
+            );
+
+          if (
+            !Number.isFinite(value)
+          ) {
+            throw new Error(
+              `Invalid latent value at ` +
+              `[${c}][${y}][${x}]`
+            );
+          }
+
+          values[index++] =
+            value;
+        }
+      }
+    }
+
+    return {
+      data: values,
+      dims: [
+        1,
+        channels,
+        height,
+        width
+      ]
+    };
+  }
+
+  // ============================================================
+  // COPY LATENT
+  // ============================================================
+
+  function copyLatent(value) {
+    return {
+      data:
+        new Float32Array(
+          value.data
+        ),
+
+      dims:
+        [...value.dims]
+    };
+  }
+
+  // ============================================================
+  // LATENT TENSOR
+  // ============================================================
+
+  function createLatentTensor(value) {
+    return new ort.Tensor(
+      "float32",
+      value.data,
+      value.dims
+    );
+  }
+
+  // ============================================================
+  // ACTION TENSOR
+  // ============================================================
+
+  function createActionTensor() {
+    return new ort.Tensor(
+      "float32",
+
+      new Float32Array([
+        action[0],
+        action[1],
+        action[2]
+      ]),
+
+      [1, 3]
+    );
+  }
+
+  // ============================================================
+  // DECODE
+  // ============================================================
+
+  async function decode(value) {
+    if (!decoder) {
+      return;
+    }
+
+    log(
+      "Decoding latent..."
+    );
+
+    const inputName =
+      decoder.inputNames[0];
+
+    const outputs =
+      await decoder.run({
+        [inputName]:
+          createLatentTensor(
+            value
+          )
+      });
+
+    const outputName =
+      decoder.outputNames[0];
+
+    const tensor =
+      outputs[outputName];
+
+    if (!tensor) {
+      throw new Error(
+        "Decoder produced no output"
+      );
+    }
+
+    const dims =
+      Array.from(
+        tensor.dims
+      );
+
+    log(
+      "Decoder output shape:",
+      dims
+    );
+
+    if (
+      dims.length !== 4
+    ) {
+      throw new Error(
+        `Expected decoder output [N,C,H,W], got ${dims}`
+      );
+    }
+
+    const channels =
+      dims[1];
+
+    const height =
+      dims[2];
+
+    const width =
+      dims[3];
+
+    if (
+      channels !== 3
+    ) {
+      throw new Error(
+        `Expected 3 RGB channels, got ${channels}`
+      );
+    }
+
+    const data =
+      tensor.data;
+
+    const imageData =
+      new ImageData(
+        width,
+        height
+      );
+
+    const rgba =
+      imageData.data;
+
+    const channelSize =
+      width *
+      height;
+
+    for (
+      let y = 0;
+      y < height;
+      y++
+    ) {
+      for (
+        let x = 0;
+        x < width;
+        x++
+      ) {
+        const p =
+          y * width + x;
+
+        let r =
+          data[p];
+
+        let g =
+          data[
+            channelSize + p
+          ];
+
+        let b =
+          data[
+            2 * channelSize + p
+          ];
+
+        if (
+          !Number.isFinite(r) ||
+          !Number.isFinite(g) ||
+          !Number.isFinite(b)
+        ) {
+          throw new Error(
+            "Decoder output contains NaN/INF"
+          );
+        }
+
+        r =
+          Math.max(
+            0,
+            Math.min(
+              1,
+              r / 2 + 0.5
+            )
+          );
+
+        g =
+          Math.max(
+            0,
+            Math.min(
+              1,
+              g / 2 + 0.5
+            )
+          );
+
+        b =
+          Math.max(
+            0,
+            Math.min(
+              1,
+              b / 2 + 0.5
+            )
+          );
+
+        const offset =
+          p * 4;
+
+        rgba[offset] =
+          Math.round(
+            r * 255
+          );
+
+        rgba[offset + 1] =
+          Math.round(
+            g * 255
+          );
+
+        rgba[offset + 2] =
+          Math.round(
+            b * 255
+          );
+
+        rgba[offset + 3] =
+          255;
+      }
+    }
+
+    const imageCanvas =
+      document.createElement(
+        "canvas"
+      );
+
+    imageCanvas.width =
+      width;
+
+    imageCanvas.height =
+      height;
+
+    const imageCtx =
+      imageCanvas.getContext(
+        "2d"
+      );
+
+    imageCtx.putImageData(
+      imageData,
+      0,
+      0
+    );
+
+    ctx.clearRect(
+      0,
+      0,
+      SCREEN_WIDTH,
+      SCREEN_HEIGHT
+    );
+
+    ctx.imageSmoothingEnabled =
+      false;
+
+    ctx.drawImage(
+      imageCanvas,
+      0,
+      0,
+      SCREEN_WIDTH,
+      SCREEN_HEIGHT
+    );
+
+    log(
+      "Decode complete."
+    );
+  }
+
+  // ============================================================
+  // AUTOMATIC INITIALIZATION
+  // ============================================================
+
+  async function initialize() {
+    if (
+      typeof ort === "undefined"
+    ) {
+      setStatus(
+        "ERROR: ONNX Runtime Web did not load."
+      );
+
+      return;
+    }
+
+    try {
+      log(
+        "================================"
+      );
+
+      log(
+        "AUTOMATIC MODEL LOADING"
+      );
+
+      log(
+        "================================"
+      );
+
+      // --------------------------------------------------------
+      // DYNAMICS MODEL
+      // --------------------------------------------------------
+
+      setStatus(
+        "Loading dynamics model..."
+      );
+
+      model =
+        await loadONNXFromURL(
+          DYNAMICS_MODEL_URL,
+          "Dynamics model"
+        );
+
+      // --------------------------------------------------------
+      // DECODER
+      // --------------------------------------------------------
+
+      setStatus(
+        "Loading decoder..."
+      );
+
+      decoder =
+        await loadONNXFromURL(
+          DECODER_MODEL_URL,
+          "Decoder model"
+        );
+
+      // --------------------------------------------------------
+      // INITIAL STATE
+      // --------------------------------------------------------
+
+      initialState =
+        await loadInitialState();
+
+      latent =
+        copyLatent(
+          initialState
+        );
+
+      action =
+        new Float32Array([
+          0,
+          0,
+          0
+        ]);
+
+      step = 0;
+
+      // --------------------------------------------------------
+      // INITIAL DECODE
+      // --------------------------------------------------------
+
+      setStatus(
+        "Models loaded.\n" +
+        "Decoding initial state..."
+      );
+
+      await decode(
+        latent
+      );
+
+      updateUI();
+
+      setStatus(
+        "READY\n\n" +
+        "Models and initial state loaded automatically.\n\n" +
+        "LEFT / RIGHT = steer\n" +
+        "UP = gas\n" +
+        "DOWN = brake\n" +
+        "ENTER / SPACE = advance\n" +
+        "C = zero action\n" +
+        "R = reset"
+      );
+
+      log(
+        "================================"
+      );
+
+      log(
+        "READY"
+      );
+
+      log(
+        "================================"
+      );
+    }
+    catch (error) {
+      console.error(
+        "STARTUP ERROR:",
+        error
+      );
+
+      log(
+        "STARTUP ERROR:",
+        error
+      );
+
+      setStatus(
+        "STARTUP ERROR:\n\n" +
+        error.message
+      );
+
+      model = null;
+      decoder = null;
+      initialState = null;
+      latent = null;
+    }
+  }
+
+  // ============================================================
+  // UPDATE ACTION
+  // ============================================================
+
+  function updateAction() {
+    if (
+      keys.has("ArrowLeft")
+    ) {
+      action[0] = -1;
+    }
+    else if (
+      keys.has("ArrowRight")
+    ) {
+      action[0] = 1;
+    }
+    else {
+      action[0] = 0;
+    }
+
+    if (
+      keys.has("ArrowUp")
+    ) {
+      action[1] = 1;
+    }
+    else {
+      action[1] = 0;
+    }
+
+    if (
+      keys.has("ArrowDown")
+    ) {
+      action[2] = 1;
+    }
+    else {
+      action[2] = 0;
+    }
+
+    updateUI();
+  }
+
+  // ============================================================
+  // ADVANCE MODEL
+  // ============================================================
+
+  async function advance() {
+    if (
+      !model ||
+      !decoder ||
+      !latent
+    ) {
+      log(
+        "Models are not loaded."
+      );
+
+      return;
+    }
+
+    if (
+      inferenceRunning
+    ) {
+      return;
+    }
+
+    inferenceRunning =
+      true;
+
+    try {
+      step++;
+
+      log(
+        "",
+        `STEP ${step}`,
+        `ACTION [${action[0]}, ${action[1]}, ${action[2]}]`
+      );
+
+      const stateTensor =
+        createLatentTensor(
+          latent
+        );
+
+      const actionTensor =
+        createActionTensor();
+
+      const outputs =
+        await model.run({
+          state:
+            stateTensor,
+
+          actions:
+            actionTensor
+        });
+
+      const outputName =
+        model.outputNames[0];
+
+      const nextTensor =
+        outputs[outputName];
+
+      if (!nextTensor) {
+        throw new Error(
+          "Dynamics model produced no output"
+        );
+      }
+
+      const nextData =
+        nextTensor.data;
+
+      for (
+        let i = 0;
+        i < nextData.length;
+        i++
+      ) {
+        if (
+          !Number.isFinite(
+            nextData[i]
+          )
+        ) {
+          throw new Error(
+            "Dynamics output contains NaN/INF"
+          );
+        }
+      }
+
+      let min =
+        Infinity;
+
+      let max =
+        -Infinity;
+
+      let sum =
+        0;
+
+      let change =
+        0;
+
+      const oldData =
+        latent.data;
+
+      for (
+        let i = 0;
+        i < nextData.length;
+        i++
+      ) {
+        const value =
+          nextData[i];
+
+        min =
+          Math.min(
+            min,
+            value
+          );
+
+        max =
+          Math.max(
+            max,
+            value
+          );
+
+        sum +=
+          value;
+
+        if (
+          i < oldData.length
+        ) {
+          change +=
+            Math.abs(
+              value -
+              oldData[i]
+            );
+        }
+      }
+
+      const mean =
+        sum /
+        nextData.length;
+
+      change /=
+        nextData.length;
+
+      log(
+        `LATENT: ${JSON.stringify(nextTensor.dims)}`
+      );
+
+      log(
+        `min=${min.toFixed(4)} ` +
+        `max=${max.toFixed(4)} ` +
+        `mean=${mean.toFixed(4)} ` +
+        `change=${change.toFixed(6)}`
+      );
+
+      latent = {
+        data:
+          new Float32Array(
+            nextData
+          ),
+
+        dims:
+          Array.from(
+            nextTensor.dims
+          )
+      };
+
+      await decode(
+        latent
+      );
+
+      updateUI();
+    }
+    catch (error) {
+      console.error(
+        "INFERENCE ERROR:",
+        error
+      );
+
+      log(
+        "INFERENCE ERROR:",
+        error.message
+      );
+    }
+    finally {
+      inferenceRunning =
+        false;
+    }
+  }
+
+  // ============================================================
+  // RESET
+  // ============================================================
+
+  async function reset() {
+    if (
+      !initialState
+    ) {
+      return;
+    }
+
+    latent =
+      copyLatent(
+        initialState
+      );
+
+    action[0] = 0;
+    action[1] = 0;
+    action[2] = 0;
+
+    step = 0;
+
+    await decode(
+      latent
+    );
+
+    updateUI();
+
+    log(
+      "RESET"
+    );
+  }
+
+  // ============================================================
+  // UI
+  // ============================================================
+
+  function updateUI() {
+    document.getElementById(
+      "step"
+    ).textContent =
+      `STEP: ${step}`;
+
+    document.getElementById(
+      "action"
+    ).textContent =
+      `ACTION: [` +
+      `${action[0] >= 0 ? "+" : ""}` +
+      `${action[0].toFixed(1)}, ` +
+      `${action[1] >= 0 ? "+" : ""}` +
+      `${action[1].toFixed(1)}, ` +
+      `${action[2] >= 0 ? "+" : ""}` +
+      `${action[2].toFixed(1)}` +
+      `]`;
+  }
+
+  // ============================================================
+  // KEYBOARD DOWN
+  // ============================================================
+
+  window.addEventListener(
+    "keydown",
+    async event => {
+      keys.add(
+        event.code
+      );
+
+      if (
+        event.code === "ArrowLeft" ||
+        event.code === "ArrowRight" ||
+        event.code === "ArrowUp" ||
+        event.code === "ArrowDown" ||
+        event.code === "Space"
+      ) {
+        event.preventDefault();
+      }
+
+      if (
+        event.code === "Enter" ||
+        event.code === "Space"
+      ) {
+        await advance();
+      }
+
+      if (
+        event.code === "KeyR"
+      ) {
+        await reset();
+      }
+
+      if (
+        event.code === "KeyC"
+      ) {
+        keys.delete(
+          "ArrowLeft"
+        );
+
+        keys.delete(
+          "ArrowRight"
+        );
+
+        keys.delete(
+          "ArrowUp"
+        );
+
+        keys.delete(
+          "ArrowDown"
+        );
+
+        action[0] = 0;
+        action[1] = 0;
+        action[2] = 0;
+
+        updateUI();
+      }
+    }
+  );
+
+  // ============================================================
+  // KEYBOARD UP
+  // ============================================================
+
+  window.addEventListener(
+    "keyup",
+    event => {
+      keys.delete(
+        event.code
+      );
+    }
+  );
+
+  // ============================================================
+  // 60 FPS LOOP
+  // ============================================================
+
+  let lastFrame =
+    performance.now();
+
+  async function gameLoop(timestamp) {
+    const elapsed =
+      timestamp -
+      lastFrame;
+
+    if (
+      elapsed >=
+      1000 / FPS
+    ) {
+      lastFrame =
+        timestamp;
+
+      updateAction();
+
+      if (
+        action[0] !== 0 ||
+        action[1] !== 0 ||
+        action[2] !== 0
+      ) {
+        await advance();
+      }
+    }
+
+    requestAnimationFrame(
+      gameLoop
+    );
+  }
+
+  // ============================================================
+  // START AUTOMATICALLY
+  // ============================================================
+
+  initialize()
+    .then(() => {
+      requestAnimationFrame(
+        gameLoop
+      );
+    });
+</script></div><!-- Sidebar -->
+<div class="col-sm-3 bg-light">
+<a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="index.html" role="button">Home</a> <a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="drugai.html" role="button">DrugAI</a> <a class="btn btn-outline-primary text-secondary btn-block custom-btn mt-1" href="worldmodels.html" role="button">WorldModels</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="nerd.html" role="button">NERD</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="prob_retrieval.html" role="button">Probabilistic Memory Retrieval</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="multi_task.html" role="button">BrainGAN</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="proteinstatai.html" role="button">ProteinStatsAI</a><a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="cv.html" role="button">CV</a> <a class="btn btn-primary btn-block custom-btn mt-1 text-light" href="https://github.com/Gananath" role="button">Contact</a>
+</div>
+</div>
+</div><!-- Footer -->
+<div class="container mt-4 border-top bg-primary rounded-bottom">
+<footer class="py-3 my-4">
+<ul class="nav justify-content-center border-bottom pb-3 mb-3">
+<li class="nav-item">
+<a class="nav-link px-2 text-light" href="#"></a>
+</li>
+</ul>
+<p class="text-center text-light lead">
+                    © 2022 Made by Me
+                </p>
+</footer>
+</div>
+</body>
+</html>
