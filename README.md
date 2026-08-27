@@ -5,7 +5,22 @@ This is an improved version of my old website which was written in simple HTML t
 
 ## Auto Webpage Generation
 
-To run the automation; First add the content yaml page in `articles` folder and then  call `python ./src/build.py` script. This will auto generates the pages. Before running this script please verify that the required modules were installed.
+To run the automation, first add the content YAML page to the `articles` folder and then run the following command:
+
+python ./src/build.py
+
+This will automatically generate the required pages. Before running this script, please verify that all required modules and dependencies are installed.
+
+## Testing
+
+The unit test script is located at `src/tests/unit_test.py`.
+
+To run the tests, execute the following command:
+
+pytest src/tests/unit_test.py
+
+The test script verifies that the automation and page-generation functionality are working as expected.
+
 
 
 ## CI/CD with Github Actions
