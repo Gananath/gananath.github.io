@@ -67,6 +67,7 @@ def new_page_creation():
 
 
 def adding_links2pages():
+    skip_html_pages = ["cv.html", "base.html"]
     # Adding menu and sidebar links
     html_files = glob.glob(root_path+"/*.html")
     for yml in yaml_files:
@@ -87,8 +88,8 @@ def adding_links2pages():
         nav_sidebar = yam["sidebar"]
 
         for html in html_files:
-            if "cv.html" in os.path.basename(html):
-                logging.info("skipped cv.html file")
+            if os.path.basename(html) in skip_html_pages:
+                logging.info(f"skipped {html} file")
                 continue
             logging.info("Link Loading {}".format(html))
             with open(html) as fp:
