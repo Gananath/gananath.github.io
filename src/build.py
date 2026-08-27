@@ -39,7 +39,7 @@ def new_page_creation():
             # Opening a base template file for modification
             # This modified base file then becomes the new web page
             logging.info("Loading Template Files for {}".format(filename))
-            with open(root_path+"/squeeznet-nano.html") as fp:
+            with open(root_path+"/base.html") as fp:
                 soup = BeautifulSoup(fp, "html.parser")
             p = cwg.WebPageGenerator(
                 soup, title, description, content, filename, ["cv.html"]

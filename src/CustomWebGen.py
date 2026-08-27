@@ -79,25 +79,59 @@ class WebPageGenerator:
         self.called = "navbar_project"
         return self
 
+    # def navbar_others(self):
+        # ## updates dropdown menu named OTHERS
+        # ## Validation
+        # tag = self.soup.find_all(
+            # "a", attrs={"class": "dropdown-item", "href": self.filename}
+        # )
+        # tag_exist = sum([i.string == self.title for i in tag])
+        # if self.filename not in self.ignore1 and not tag_exist:
+            # tag = self.soup.find("nav", attrs={"class": "navbar"})
+            ##tag = tag.ul.ul.find_all("ul")[1].li
+            # tag = tag.ul.ul.find_all("ul")[1].find_parent("li")
+            # extraSoup = BeautifulSoup(
+                # '\n<li><a class="dropdown-item" href="{}">{}</a></li>'.format(
+                    # self.filename, self.title
+                # ),
+                # "html.parser",
+            # )
+            # tag.insert_after(extraSoup)
+        # self.called = "navbar_others"
+        # return self
+        
     def navbar_others(self):
-        # updates dropdown menu named OTHERS
-        # Validation
+        ## updates dropdown menu named OTHERS
+        ## Validation
         tag = self.soup.find_all(
-            "a", attrs={"class": "dropdown-item", "href": self.filename}
+            "a",
+            attrs={"class": "dropdown-item", "href": self.filename},
         )
         tag_exist = sum([i.string == self.title for i in tag])
+
         if self.filename not in self.ignore1 and not tag_exist:
-            tag = self.soup.find("nav", attrs={"class": "navbar"})
-            tag = tag.ul.ul.find_all("ul")[1].li
-            extraSoup = BeautifulSoup(
-                '\n<li><a class="dropdown-item" href="{}">{}</a></li>'.format(
-                    self.filename, self.title
-                ),
-                "html.parser",
+            # Find the divider before the "Other" menu
+            divider = self.soup.find(
+                "hr",
+                attrs={"class": "dropdown-divider"},
             )
-            tag.insert_after(extraSoup)
+
+            if divider is not None:
+                tag = divider.parent
+
+                extraSoup = BeautifulSoup(
+                    '\n<li><a class="dropdown-item" href="{}">{}</a></li>'.format(
+                        self.filename,
+                        self.title,
+                    ),
+                    "html.parser",
+                )
+
+                tag.insert_before(extraSoup)
+
         self.called = "navbar_others"
         return self
+
 
     def heading(self):
         # adds heading
@@ -144,7 +178,7 @@ class WebPageGenerator:
                     "class": (
                         "btn btn-primary btn-block custom-btn mt-1 text-light"
                     ),
-                    "href": "cv.html",
+                    "href": "index.html",
                     "role": "button",
                 },
             )
@@ -166,7 +200,7 @@ class WebPageGenerator:
                     "html.parser",
                 )
 
-            tag.insert_before(extraSoup)
+            tag.insert_after(extraSoup)
         self.called = "sidebar"
         return self
 
