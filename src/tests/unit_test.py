@@ -6,7 +6,7 @@ import glob
 
 
 def soup():
-    with open("./squeeznet-nano.html") as fp:
+    with open("./base.html") as fp:
         soup = BeautifulSoup(fp, "html.parser")
     return soup
 
@@ -49,7 +49,7 @@ def test_soup_file():
 def test_squeezent_soup():
     assert (
         "".join(soup().find("h1", attrs={"class": "display-5"}).string.split())
-        == "Squeeznet-nano"
+        == "Title"
     )
 
 
